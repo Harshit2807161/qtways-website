@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-cream-50 text-charcoal-800 font-sans;
+  }
+
+  /* Typography defaults */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-medium text-charcoal-900;
+  }
+
+  /* Focus styles for accessibility */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-gold-500 ring-offset-2;
+  }
+
+  /* Selection color */
+  ::selection {
+    @apply bg-gold-400/30 text-charcoal-900;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  /* Container with max-width and padding */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Section padding */
+  .section-padding {
+    @apply py-12 md:py-16 lg:py-24;
+  }
+
+  /* Elegant button base */
+  .btn-base {
+    @apply inline-flex items-center justify-center font-medium
+           transition-all duration-300 ease-elegant
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+  }
+
+  /* Primary button */
+  .btn-primary {
+    @apply btn-base px-6 py-3 bg-charcoal-900 text-white
+           hover:bg-charcoal-800 active:bg-charcoal-950
+           focus-visible:ring-charcoal-500;
+  }
+
+  /* Secondary button */
+  .btn-secondary {
+    @apply btn-base px-6 py-3 bg-transparent text-charcoal-900
+           border border-charcoal-900
+           hover:bg-charcoal-900 hover:text-white
+           focus-visible:ring-charcoal-500;
+  }
+
+  /* Gold accent button */
+  .btn-gold {
+    @apply btn-base px-6 py-3 bg-gold-500 text-white
+           hover:bg-gold-600 active:bg-gold-700
+           focus-visible:ring-gold-400;
+  }
+
+  /* Text link button */
+  .btn-link {
+    @apply btn-base text-charcoal-700 underline underline-offset-4
+           hover:text-charcoal-900 hover:no-underline;
+  }
+
+  /* Card hover effect */
+  .card-hover {
+    @apply transition-all duration-300 ease-elegant
+           hover:shadow-elegant hover:-translate-y-1;
+  }
+
+  /* Image zoom on hover */
+  .img-zoom {
+    @apply transition-transform duration-500 ease-out
+           group-hover:scale-105;
+  }
+
+  /* Overlay gradient */
+  .overlay-gradient {
+    @apply absolute inset-0 bg-gradient-to-t from-charcoal-900/60 via-transparent to-transparent;
+  }
+
+  /* Badge styles */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full;
+  }
+
+  .badge-sale {
+    @apply badge bg-coral-500 text-white;
+  }
+
+  .badge-new {
+    @apply badge bg-gold-500 text-white;
+  }
+
+  .badge-bestseller {
+    @apply badge bg-charcoal-900 text-white;
+  }
+}
+
+/* Custom utility styles */
+@layer utilities {
+  /* Text gradient */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-gold-500 to-gold-700;
+  }
+
+  /* Line clamp utilities */
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Elegant scrollbar */
+  .scrollbar-elegant {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.charcoal.300') transparent;
+  }
+
+  .scrollbar-elegant::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-elegant::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-elegant::-webkit-scrollbar-thumb {
+    background-color: theme('colors.charcoal.300');
+    border-radius: 3px;
+  }
+
+  .scrollbar-elegant::-webkit-scrollbar-thumb:hover {
+    background-color: theme('colors.charcoal.400');
+  }
+
+  /* Aspect ratios */
+  .aspect-product {
+    aspect-ratio: 1 / 1;
+  }
+
+  .aspect-hero {
+    aspect-ratio: 16 / 9;
+  }
+
+  .aspect-category {
+    aspect-ratio: 3 / 4;
+  }
+}
+
+/* Swiper custom styles */
+.swiper-button-prev,
+.swiper-button-next {
+  @apply !w-10 !h-10 !bg-white !rounded-full !shadow-soft
+         after:!text-charcoal-800 after:!text-sm after:!font-bold
+         hover:!bg-charcoal-900 hover:after:!text-white
+         transition-colors duration-300;
+}
+
+.swiper-pagination-bullet {
+  @apply !bg-charcoal-300 !opacity-100;
+}
+
+.swiper-pagination-bullet-active {
+  @apply !bg-gold-500 !w-6 rounded-full;
+}
+
+/* Animation utilities */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

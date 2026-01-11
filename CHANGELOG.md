@@ -10,12 +10,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned
-- Design principles and style guide documentation
-- Utility functions (cn.js, formatPrice.js)
-- Data files (products, categories, concerns, testimonials)
 - Layout components (Header, Footer, AnnouncementBar, MobileNav)
 - UI components (Button, Badge, ProductCard, etc.)
 - Homepage sections (Hero, PrimePicks, TrustBadges, etc.)
+- Interactive components (SearchModal, CartDrawer, WhatsAppButton)
+- Custom hooks (useCart, useModal, useMediaQuery)
+
+---
+
+## [0.2.0] - 2026-01-10
+
+### Added
+- **Design System Documentation**
+  - `context/design-principles.md` - Comprehensive design checklist covering typography, spacing, colors, accessibility, and performance
+  - `context/style-guide.md` - Brand guidelines with color palette, typography scale, component patterns, and icon usage
+
+- **Utility Functions**
+  - `src/utils/cn.js` - Class name utility for conditional class merging
+  - `src/utils/formatPrice.js` - Price formatting utilities:
+    - `formatPrice()` - Format numbers as INR currency
+    - `calculateDiscount()` - Calculate percentage discount
+    - `formatPriceRange()` - Format min-max price ranges
+    - `getPriceDisplay()` - Get formatted prices with sale info
+
+- **Data Files**
+  - `src/data/siteConfig.js` - Site configuration including:
+    - Brand info and contact details
+    - Social media links
+    - SEO defaults
+    - Navigation structure
+    - Trust badges
+    - Announcement messages
+  - `src/data/products.js` - 12 products across 4 categories with:
+    - Full product details (name, price, description, ingredients, benefits)
+    - Helper functions (getProductById, getProductsByCategory, searchProducts, etc.)
+  - `src/data/categories.js` - 4 main categories with subcategories
+  - `src/data/concerns.js` - 8 skin concerns for "Shop by Concern" section
+  - `src/data/testimonials.js` - 10 customer testimonials with ratings
+
+- **Project Structure**
+  - Created folder structure for components (layout, sections, ui, common)
+  - Created hooks folder for custom React hooks
+  - Added barrel exports (`index.js`) for data and utils
+
+### Changed
+- Updated `docs/implementation-progress.md` with Sprint 2 completion
 
 ---
 
@@ -76,6 +115,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Description |
 |---------|------|-------------|
+| 0.2.0 | 2026-01-10 | Sprint 2: Design system, utilities, and data files |
 | 0.1.0 | 2026-01-10 | Initial project setup with Vite, React, Tailwind |
 
 ---
@@ -106,6 +146,6 @@ refactor: extract price formatting to utility function
 
 ## Links
 
-- **Repository**: https://github.com/[username]/qtways-website
+- **Repository**: https://github.com/Harshit2807161/qtways-website
 - **Live Site**: (Coming soon - Vercel deployment)
 - **Design Reference**: https://www.kimirica.shop/

@@ -6,6 +6,8 @@ import {
   MobileNav,
   Footer,
   WhatsAppButton,
+  SearchModal,
+  CartDrawer,
 } from './components';
 import { useCart } from './hooks';
 import HomePage from './pages/HomePage';
@@ -60,6 +62,18 @@ function App() {
 
       {/* WhatsApp Button */}
       <WhatsAppButton />
+
+      {/* Search Modal */}
+      <SearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
+
+      {/* Cart Drawer */}
+      <CartDrawer
+        isOpen={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
+      />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 # QTWAYS Website - Implementation Progress
 
-> **Last Updated**: January 10, 2026
-> **Current Sprint**: Sprint 3 - Layout & UI Components
+> **Last Updated**: January 11, 2026
+> **Current Sprint**: Sprint 4 - Homepage Sections
 > **Status**: Ready to Start
 
 ---
@@ -12,8 +12,8 @@
 |--------|--------|----------|
 | Sprint 1: Foundation | Completed | 100% |
 | Sprint 2: Design System | Completed | 100% |
-| Sprint 3: Layout & UI Components | Not Started | 0% |
-| Sprint 4: Homepage Sections | Not Started | 0% |
+| Sprint 3: Layout & UI Components | Completed | 100% |
+| Sprint 4: Homepage Sections | Completed | 100% |
 | Sprint 5: Interactive & Assembly | Not Started | 0% |
 
 ---
@@ -79,37 +79,73 @@ src/
 
 ---
 
-## Sprint 3: Layout & UI Components (NEXT UP)
+## Sprint 3: Layout & UI Components (COMPLETED)
 
-- [ ] Build layout components:
-  - [ ] Header.jsx (with navigation, search, cart icons)
-  - [ ] Footer.jsx (links, social, newsletter)
-  - [ ] AnnouncementBar.jsx (scrolling announcements)
-  - [ ] MobileNav.jsx (drawer navigation)
-- [ ] Build UI components:
-  - [ ] Button.jsx (variants: primary, secondary, gold, link)
-  - [ ] Badge.jsx (sale, new, bestseller)
-  - [ ] ProductCard.jsx (image, title, price, badge)
-  - [ ] CategoryCard.jsx (image overlay with title)
-  - [ ] TestimonialCard.jsx (quote, author, rating)
-  - [ ] Rating.jsx (star display)
-  - [ ] Carousel.jsx (Swiper wrapper)
+- [x] Build layout components:
+  - [x] Header.jsx (with navigation, search, cart icons)
+  - [x] Footer.jsx (links, social, newsletter)
+  - [x] AnnouncementBar.jsx (scrolling announcements)
+  - [x] MobileNav.jsx (drawer navigation)
+- [x] Build UI components:
+  - [x] Button.jsx (variants: primary, secondary, gold, link, ghost)
+  - [x] Badge.jsx (sale, new, bestseller, soldout)
+  - [x] ProductCard.jsx (image, title, price, badge, quick add)
+  - [x] CategoryCard.jsx (image overlay with title)
+  - [x] TestimonialCard.jsx (quote, author, rating)
+  - [x] Rating.jsx (star display with partial fill support)
+  - [x] Carousel.jsx (Swiper wrapper with presets)
+
+### Files Created:
+```
+src/components/
+├── layout/
+│   ├── AnnouncementBar.jsx  → Auto-rotating announcements with pause on hover
+│   ├── Header.jsx           → Sticky header with scroll effect, nav, cart badge
+│   ├── MobileNav.jsx        → Slide-in drawer with categories
+│   ├── Footer.jsx           → Links, social icons, newsletter signup
+│   └── index.js             → Layout barrel export
+├── ui/
+│   ├── Button.jsx           → 6 variants (primary, secondary, gold, sage, link, ghost)
+│   ├── Badge.jsx            → 4 variants + convenience components
+│   ├── Rating.jsx           → Star display + interactive input
+│   ├── ProductCard.jsx      → Full + compact variants
+│   ├── CategoryCard.jsx     → Card + pill variants
+│   ├── TestimonialCard.jsx  → Standard + featured variants
+│   ├── Carousel.jsx         → Base + ProductCarousel, HeroCarousel, TestimonialCarousel
+│   └── index.js             → UI barrel export
+└── index.js                 → Main components barrel export
+```
 
 ---
 
-## Sprint 4: Homepage Sections (NOT STARTED)
+## Sprint 4: Homepage Sections (COMPLETED)
 
-- [ ] Hero.jsx
-- [ ] IconicSelections.jsx
-- [ ] PrimePicks.jsx
-- [ ] FeaturedBanner.jsx
-- [ ] TrustBadges.jsx
-- [ ] ShopByConcern.jsx
-- [ ] ShopByCategory.jsx
-- [ ] ProductGrid.jsx
-- [ ] Testimonials.jsx
-- [ ] BrandStory.jsx
-- [ ] Newsletter.jsx
+- [x] Hero.jsx - Full-screen hero with CTA, stats, and floating badges
+- [x] FeaturedProducts.jsx - Product carousel with BestSellers variant
+- [x] FeaturedBanner.jsx - Promotional banners (Sale, NewArrivals presets)
+- [x] TrustBadges.jsx - Trust indicators with icons
+- [x] ShopByConcern.jsx - Shop by skin concern grid
+- [x] ShopByCategory.jsx - Category cards navigation
+- [x] ProductGrid.jsx - Flexible grid with animation variants
+- [x] Testimonials.jsx - Customer reviews carousel
+- [x] BrandStory.jsx - About section with brand story
+- [x] Newsletter.jsx - Email signup with validation
+
+### Files Created:
+```
+src/components/sections/
+├── Hero.jsx              → Full hero section with animations
+├── FeaturedProducts.jsx  → Product carousel + BestSellers
+├── FeaturedBanner.jsx    → Promotional banners (3 variants)
+├── ProductGrid.jsx       → Flexible product grid (3 variants)
+├── TrustBadges.jsx       → Trust indicators
+├── ShopByCategory.jsx    → Category navigation
+├── ShopByConcern.jsx     → Skin concern selection
+├── Testimonials.jsx      → Customer reviews
+├── BrandStory.jsx        → Brand story section
+├── Newsletter.jsx        → Email signup form
+└── index.js              → Sections barrel export
+```
 
 ---
 
@@ -127,6 +163,31 @@ src/
 ---
 
 ## Session Log
+
+### Session 3 - January 11, 2026
+**Focus**: Sprint 3 & 4 Completion
+
+#### Sprint 3 Completed:
+- [x] Audited existing Sprint 3 components (most were already built)
+- [x] Created `Carousel.jsx` - Swiper wrapper with presets
+- [x] Updated UI components index with Carousel exports
+
+#### Sprint 4 Completed:
+- [x] Audited existing Sprint 4 sections (most were already built)
+- [x] Created `FeaturedBanner.jsx` - Promotional banners with variants
+- [x] Created `ProductGrid.jsx` - Flexible product grid component
+- [x] Updated sections index with new exports
+- [x] Verified production build compiles successfully
+- [x] Updated implementation-progress.md
+
+#### Summary:
+- **Sprint 3**: All layout (4) and UI components (7) complete
+- **Sprint 4**: All homepage sections (10) complete
+
+#### Next Steps:
+Ready to begin Sprint 5 - Interactive & Assembly
+
+---
 
 ### Session 2 (continued) - January 10, 2026
 **Focus**: Sprint 2 - Design System

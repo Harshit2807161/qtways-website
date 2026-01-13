@@ -10,11 +10,86 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned
-- Layout components (Header, Footer, AnnouncementBar, MobileNav)
-- UI components (Button, Badge, ProductCard, etc.)
-- Homepage sections (Hero, PrimePicks, TrustBadges, etc.)
-- Interactive components (SearchModal, CartDrawer, WhatsAppButton)
-- Custom hooks (useCart, useModal, useMediaQuery)
+- Responsive design testing (375px, 768px, 1440px)
+- Lighthouse performance audit
+- Vercel deployment
+- Additional pages (Shop, Product Detail, Cart, Checkout)
+
+---
+
+## [0.5.0] - 2026-01-11
+
+### Added
+- **Developer Documentation**
+  - `docs/dev_docs.md` - Comprehensive codebase guide with:
+    - Architecture overview with visual diagrams
+    - Directory structure explanation
+    - All components documented with props/usage
+    - Data flow and state management patterns
+    - Styling system reference
+    - Adding new features guide
+
+### Changed
+- Expanded container width to 1400px on 2xl screens
+- Added `.container-wide` class for full-width sections
+
+---
+
+## [0.4.0] - 2026-01-11
+
+### Added
+- **Sprint 5: Interactive Components**
+  - `SearchModal.jsx` - Full-text product search with live results
+  - `CartDrawer.jsx` - Slide-out cart with quantity controls
+  - Integrated modals into App.jsx
+
+- **Custom Hooks**
+  - `useCart.js` - Cart state management with localStorage persistence
+  - `useModal.js` - Reusable modal open/close logic
+  - `useMediaQuery.js` - Responsive breakpoint detection
+
+### Changed
+- Updated App.jsx with search and cart modal integration
+- MVP complete - all 5 sprints finished
+
+---
+
+## [0.3.0] - 2026-01-11
+
+### Added
+- **Sprint 3: Layout Components**
+  - `Header.jsx` - Sticky header with scroll effect, navigation, cart badge
+  - `Footer.jsx` - Links, social icons, newsletter signup
+  - `AnnouncementBar.jsx` - Auto-rotating announcements
+  - `MobileNav.jsx` - Slide-in drawer navigation
+
+- **Sprint 3: UI Components**
+  - `Button.jsx` - 6 variants (primary, secondary, gold, sage, link, ghost)
+  - `Badge.jsx` - 4 variants + convenience components
+  - `Rating.jsx` - Star display with partial fill support
+  - `ProductCard.jsx` - Full and compact variants
+  - `CategoryCard.jsx` - Card and pill variants
+  - `TestimonialCard.jsx` - Standard and featured variants
+  - `Carousel.jsx` - Swiper wrapper with presets
+
+- **Sprint 4: Homepage Sections**
+  - `Hero.jsx` - Full hero with CTA, stats, floating badges
+  - `FeaturedProducts.jsx` - Product carousel with BestSellers variant
+  - `FeaturedBanner.jsx` - Promotional banners (3 variants)
+  - `ProductGrid.jsx` - Flexible grid with animations
+  - `TrustBadges.jsx` - Trust indicators
+  - `ShopByCategory.jsx` - Category navigation
+  - `ShopByConcern.jsx` - Skin concern selection
+  - `Testimonials.jsx` - Customer reviews carousel
+  - `BrandStory.jsx` - Brand story section
+  - `Newsletter.jsx` - Email signup form
+
+- **Common Components**
+  - `WhatsAppButton.jsx` - Floating contact button
+
+### Changed
+- Assembled HomePage with all sections
+- Updated barrel exports for all component directories
 
 ---
 
@@ -115,8 +190,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Description |
 |---------|------|-------------|
+| 0.5.0 | 2026-01-11 | Developer documentation and desktop width fix |
+| 0.4.0 | 2026-01-11 | Sprint 5: Interactive components, MVP complete |
+| 0.3.0 | 2026-01-11 | Sprint 3 & 4: Layout, UI, and homepage sections |
 | 0.2.0 | 2026-01-10 | Sprint 2: Design system, utilities, and data files |
-| 0.1.0 | 2026-01-10 | Initial project setup with Vite, React, Tailwind |
+| 0.1.0 | 2026-01-10 | Sprint 1: Initial project setup with Vite, React, Tailwind |
 
 ---
 

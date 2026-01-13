@@ -34,7 +34,12 @@
 @layer components {
   /* Container with max-width and padding */
   .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 2xl:max-w-[1400px];
+  }
+
+  /* Wide container for full-width sections */
+  .container-wide {
+    @apply max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8;
   }
 
   /* Section padding */

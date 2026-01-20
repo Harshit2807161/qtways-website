@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { X, ChevronRight, Phone, Mail, Instagram, Facebook, Youtube, Twitter } from 'lucide-react';
+import { X, ChevronRight, Phone, Mail, Instagram, Facebook, Youtube, Twitter, User, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../../utils';
 import { navigation, siteConfig } from '../../data';
+import { useAuth } from '../../context/AuthContext';
 
 const socialIcons = {
   instagram: Instagram,
@@ -12,7 +13,21 @@ const socialIcons = {
   twitter: Twitter,
 };
 
-export const MobileNav = ({ isOpen, onClose, className, ...props }) => {
+export const MobileNav = ({ isOpen, onClose, onLoginClick, className, ...props }) => {
+  const { user, isAuthenticated, logout } = useAuth();
+
+  // Handle logout
+  const handleLogout = async () => {
+    await logout();
+    onClose();
+  };
+
+  // Handle login click
+  const handleLoginClick = () => {
+    onClose();
+    onLoginClick?.();
+  };
+
   // Lock body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
@@ -82,6 +97,52 @@ export const MobileNav = ({ isOpen, onClose, className, ...props }) => {
               >
                 <X className="w-5 h-5 text-charcoal-700" />
               </button>
+            </div>
+
+            {/* User Account Section */}
+            <div className="p-4 border-b border-cream-200 bg-cream-50">
+              {isAuthenticated ? (
+                <div className="flex items-center justify-between">
+                  <Link
+                    to="/account"
+                    onClick={onClose}
+                    className="flex items-center gap-3"
+                  >
+                    <div className="w-10 h-10 bg-gold-100 rounded-full flex items-center justify-center">
+                      <User className="w-5 h-5 text-gold-600" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-charcoal-900">
+                        {user?.name || 'My Account'}
+                      </p>
+                      <p className="text-sm text-charcoal-500">
+                        {user?.phone || 'View profile'}
+                      </p>
+                    </div>
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="p-2 hover:bg-cream-100 rounded-md transition-colors"
+                    aria-label="Logout"
+                  >
+                    <LogOut className="w-5 h-5 text-charcoal-500" />
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={handleLoginClick}
+                  className="flex items-center gap-3 w-full"
+                >
+                  <div className="w-10 h-10 bg-cream-200 rounded-full flex items-center justify-center">
+                    <User className="w-5 h-5 text-charcoal-600" />
+                  </div>
+                  <div className="text-left">
+                    <p className="font-medium text-charcoal-900">Login / Sign Up</p>
+                    <p className="text-sm text-charcoal-500">Access your account</p>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-charcoal-400 ml-auto" />
+                </button>
+              )}
             </div>
 
             {/* Navigation */}

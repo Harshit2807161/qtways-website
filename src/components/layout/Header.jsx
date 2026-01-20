@@ -1,18 +1,21 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Search, ShoppingBag, User, Menu, Heart } from 'lucide-react';
+import { Search, ShoppingBag, User, Menu, Heart, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../../utils';
 import { navigation, siteConfig } from '../../data';
+import { useAuth } from '../../context/AuthContext';
 
 export const Header = ({
   onMenuOpen,
   onSearchOpen,
   onCartOpen,
+  onAccountClick,
   cartItemCount = 0,
   className,
   ...props
 }) => {
+  const { user, isAuthenticated, logout } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -100,13 +103,36 @@ export const Header = ({
             )}
 
             {/* Account - Hidden on mobile */}
-            <Link
-              to="/account"
-              className="p-2 hover:bg-cream-100 rounded-md transition-colors hidden md:block"
-              aria-label="My account"
-            >
-              <User className="w-5 h-5 text-charcoal-700" />
-            </Link>
+            {isAuthenticated ? (
+              <div className="hidden md:flex items-center gap-1">
+                <Link
+                  to="/account"
+                  className="p-2 hover:bg-cream-100 rounded-md transition-colors flex items-center gap-2"
+                  aria-label="My account"
+                >
+                  <User className="w-5 h-5 text-charcoal-700" />
+                  <span className="text-sm font-medium text-charcoal-700 max-w-[80px] truncate">
+                    {user?.name || 'Account'}
+                  </span>
+                </Link>
+                <button
+                  onClick={logout}
+                  className="p-2 hover:bg-cream-100 rounded-md transition-colors"
+                  aria-label="Logout"
+                  title="Logout"
+                >
+                  <LogOut className="w-4 h-4 text-charcoal-500" />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={onAccountClick}
+                className="p-2 hover:bg-cream-100 rounded-md transition-colors hidden md:block"
+                aria-label="Login"
+              >
+                <User className="w-5 h-5 text-charcoal-700" />
+              </button>
+            )}
 
             {/* Cart */}
             <button

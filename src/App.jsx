@@ -8,16 +8,24 @@ import {
   WhatsAppButton,
   SearchModal,
   CartDrawer,
+  LoginModal,
 } from './components';
 import { useCart } from './hooks';
+import { AuthProvider } from './context/AuthContext';
 import HomePage from './pages/HomePage';
 
-function App() {
+function AppContent() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   const { itemCount } = useCart();
+
+  const handleLoginSuccess = (data) => {
+    console.log('Login successful:', data);
+    // Optionally refresh cart or show welcome message
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -37,6 +45,7 @@ function App() {
         onMenuOpen={() => setIsMobileNavOpen(true)}
         onSearchOpen={() => setIsSearchOpen(true)}
         onCartOpen={() => setIsCartOpen(true)}
+        onAccountClick={() => setIsLoginOpen(true)}
         cartItemCount={itemCount}
       />
 
@@ -44,10 +53,14 @@ function App() {
       <MobileNav
         isOpen={isMobileNavOpen}
         onClose={() => setIsMobileNavOpen(false)}
+        onLoginClick={() => {
+          setIsMobileNavOpen(false);
+          setIsLoginOpen(true);
+        }}
       />
 
       {/* Main Content */}
-      <div className="flex-1">
+      <div id="main-content" className="flex-1">
         <Routes>
           <Route path="/" element={<HomePage />} />
           {/* Placeholder routes for future pages */}
@@ -55,10 +68,14 @@ function App() {
           <Route path="/category/:slug" element={<PlaceholderPage title="Category" />} />
           <Route path="/concern/:slug" element={<PlaceholderPage title="Concern" />} />
           <Route path="/product/:slug" element={<PlaceholderPage title="Product" />} />
+          <Route path="/cart" element={<PlaceholderPage title="Cart" />} />
+          <Route path="/checkout" element={<PlaceholderPage title="Checkout" />} />
+          <Route path="/account" element={<PlaceholderPage title="My Account" />} />
+          <Route path="/orders" element={<PlaceholderPage title="Order History" />} />
           <Route path="/about" element={<PlaceholderPage title="About Us" />} />
           <Route path="/contact" element={<PlaceholderPage title="Contact" />} />
           <Route path="/privacy-policy" element={<PlaceholderPage title="Privacy Policy" />} />
-          <Route path="/terms-of-service" element={<PlaceholderPage title="Terms of Service" />} />
+          <Route path="/terms" element={<PlaceholderPage title="Terms of Service" />} />
           <Route path="/shipping-policy" element={<PlaceholderPage title="Shipping Policy" />} />
           <Route path="/return-policy" element={<PlaceholderPage title="Return Policy" />} />
           <Route path="*" element={<PlaceholderPage title="404 - Page Not Found" />} />
@@ -82,7 +99,22 @@ function App() {
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
       />
+
+      {/* Login Modal */}
+      <LoginModal
+        isOpen={isLoginOpen}
+        onClose={() => setIsLoginOpen(false)}
+        onSuccess={handleLoginSuccess}
+      />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 

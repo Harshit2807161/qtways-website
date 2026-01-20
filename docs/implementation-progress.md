@@ -1,12 +1,14 @@
 # QTWAYS Website - Implementation Progress
 
-> **Last Updated**: January 11, 2026
-> **Current Sprint**: MVP Complete
-> **Status**: All 5 Sprints Completed - Ready for Testing & Deployment
+> **Last Updated**: January 19, 2026
+> **Current Sprint**: V1 - Sprint 6 (Backend Foundation)
+> **Status**: MVP Complete, V1 In Progress
 
 ---
 
 ## Implementation Status Summary
+
+### MVP Sprints (Complete)
 
 | Sprint | Status | Progress |
 |--------|--------|----------|
@@ -15,6 +17,17 @@
 | Sprint 3: Layout & UI Components | Completed | 100% |
 | Sprint 4: Homepage Sections | Completed | 100% |
 | Sprint 5: Interactive & Assembly | Completed | 100% |
+
+### V1 Sprints (In Progress)
+
+| Sprint | Status | Progress |
+|--------|--------|----------|
+| Sprint 6: Backend Foundation | Completed | 100% |
+| Sprint 7: Authentication System | Pending | 0% |
+| Sprint 8: Shop & Product Pages | Pending | 0% |
+| Sprint 9: Cart System | Pending | 0% |
+| Sprint 10: Checkout & Orders | Pending | 0% |
+| Sprint 11: Polish & Testing | Pending | 0% |
 
 ---
 
@@ -184,7 +197,79 @@ src/hooks/
 
 ---
 
+## Sprint 6: Backend Foundation (COMPLETED)
+
+- [x] Install backend dependencies (mongoose, jsonwebtoken, cookie, uuid, dotenv)
+- [x] Create MongoDB connection utility with connection caching
+- [x] Create Mongoose models:
+  - [x] User.js - User profile with addresses
+  - [x] Product.js - Product catalog with search indexes
+  - [x] Cart.js - Shopping cart with merge functionality
+  - [x] Order.js - Order management with auto-generated IDs
+  - [x] OTP.js - OTP storage with TTL auto-expiry
+- [x] Create auth middleware (JWT generation/verification)
+- [x] Create API utility functions (responses, CORS, error handling)
+- [x] Create /api/products endpoints (list with filters, single product)
+- [x] Create seed script to populate MongoDB
+- [x] Create Vercel configuration for serverless functions
+
+### Files Created:
+```
+lib/
+├── mongodb.js              → MongoDB connection with caching
+├── apiUtils.js             → API response utilities
+├── middleware/
+│   └── auth.js             → JWT authentication
+└── models/
+    ├── index.js            → Model exports
+    ├── User.js             → User schema
+    ├── Product.js          → Product schema
+    ├── Cart.js             → Cart schema
+    ├── Order.js            → Order schema
+    └── OTP.js              → OTP schema
+
+api/
+├── products/
+│   ├── index.js            → GET /api/products (list with filters)
+│   └── [slug].js           → GET /api/products/:slug (single product)
+└── (auth, cart, orders, user - ready for Sprint 7-10)
+
+scripts/
+└── seed.js                 → Database seed script
+
+.env.example                → Environment variables template
+vercel.json                 → Vercel deployment config
+```
+
+---
+
 ## Session Log
+
+### Session 4 - January 19, 2026
+**Focus**: V1 Planning & Sprint 6 (Backend Foundation)
+
+#### Planning Completed:
+- [x] Created MVP branch from main
+- [x] Created V1 branch for new development
+- [x] Drafted V1 PRD with full e-commerce scope
+- [x] Defined 6 new sprints (Sprint 6-11)
+
+#### Sprint 6 Completed:
+- [x] Installed backend dependencies (mongoose, jsonwebtoken, etc.)
+- [x] Created MongoDB connection utility with caching for serverless
+- [x] Created 5 Mongoose models (User, Product, Cart, Order, OTP)
+- [x] Created auth middleware with JWT support
+- [x] Created API utility functions
+- [x] Created products API endpoints with filtering
+- [x] Created database seed script
+- [x] Created Vercel configuration
+
+#### Summary:
+- **V1 Branch**: Created and active
+- **Backend Foundation**: Complete
+- **Next**: Sprint 7 - Authentication System (Phone OTP)
+
+---
 
 ### Session 3 - January 11, 2026
 **Focus**: Sprint 3, 4 & 5 Completion - MVP Complete!

@@ -137,6 +137,11 @@ export const ShopPage = () => {
     addItem(product);
   };
 
+  // Handle wishlist
+  const handleWishlist = (product) => {
+    alert(`${product.name} added to wishlist!`);
+  };
+
   // Page title
   const pageTitle = category?.name || 'All Products';
   const pageDescription = category?.description || 'Explore our complete collection of skincare and wellness products.';
@@ -324,6 +329,7 @@ export const ShopPage = () => {
                       <ProductCard
                         product={product}
                         onQuickAdd={handleQuickAdd}
+                        onWishlist={handleWishlist}
                       />
                     </motion.div>
                   ))}

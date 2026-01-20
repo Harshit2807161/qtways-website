@@ -534,6 +534,7 @@ export const ProductDetailPage = () => {
                   key={product.id}
                   product={product}
                   onQuickAdd={(p) => addItem(p)}
+                  onWishlist={(p) => alert(`${p.name} added to wishlist!`)}
                 />
               ))}
             </div>

@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { ProductCard, Button } from '../ui';
 import { getFeaturedProducts, getBestSellers } from '../../data';
+import { useCart } from '../../hooks';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -19,7 +20,18 @@ export const FeaturedProducts = ({
   className,
   ...props
 }) => {
+  const { addItem } = useCart();
   const displayProducts = products || getFeaturedProducts();
+
+  const handleQuickAdd = (product) => {
+    addItem(product);
+  };
+
+  const handleWishlist = (product) => {
+    // Wishlist feature - for V1 show a toast/alert
+    // Full wishlist implementation can be added later
+    alert(`${product.name} added to wishlist!`);
+  };
 
   return (
     <section
@@ -66,7 +78,11 @@ export const FeaturedProducts = ({
           >
             {displayProducts.map((product) => (
               <SwiperSlide key={product.id}>
-                <ProductCard product={product} />
+                <ProductCard
+                  product={product}
+                  onQuickAdd={handleQuickAdd}
+                  onWishlist={handleWishlist}
+                />
               </SwiperSlide>
             ))}
           </Swiper>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import {
   AnnouncementBar,
@@ -12,7 +12,15 @@ import {
 } from './components';
 import { useCart } from './hooks';
 import { AuthProvider } from './context/AuthContext';
-import { HomePage, ShopPage, ProductDetailPage, CartPage } from './pages';
+import {
+  HomePage,
+  ShopPage,
+  ProductDetailPage,
+  CartPage,
+  CheckoutPage,
+  OrderConfirmationPage,
+  AccountPage,
+} from './pages';
 
 function AppContent() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -26,6 +34,13 @@ function AppContent() {
     console.log('Login successful:', data);
     // Optionally refresh cart or show welcome message
   };
+
+  // Listen for openLogin event from checkout page
+  useEffect(() => {
+    const handleOpenLogin = () => setIsLoginOpen(true);
+    window.addEventListener('openLogin', handleOpenLogin);
+    return () => window.removeEventListener('openLogin', handleOpenLogin);
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -69,9 +84,10 @@ function AppContent() {
           <Route path="/concern/:slug" element={<ShopPage />} />
           <Route path="/product/:slug" element={<ProductDetailPage />} />
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" element={<PlaceholderPage title="Checkout" />} />
-          <Route path="/account" element={<PlaceholderPage title="My Account" />} />
-          <Route path="/orders" element={<PlaceholderPage title="Order History" />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/order-confirmation/:orderId" element={<OrderConfirmationPage />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/account/:tab" element={<AccountPage />} />
           <Route path="/about" element={<PlaceholderPage title="About Us" />} />
           <Route path="/contact" element={<PlaceholderPage title="Contact" />} />
           <Route path="/privacy-policy" element={<PlaceholderPage title="Privacy Policy" />} />

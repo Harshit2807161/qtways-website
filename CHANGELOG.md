@@ -10,8 +10,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned
-- Sprint 10: Checkout & Orders
 - Sprint 11: Polish & Testing
+
+---
+
+## [0.10.0] - 2026-01-20
+
+### Added
+- **Sprint 10: Checkout & Orders**
+  - `CheckoutPage.jsx` - Multi-step checkout flow with:
+    - Step 1: Login (redirects to shipping if authenticated)
+    - Step 2: Shipping address form (Indian states dropdown)
+    - Step 3: Order review with edit options
+    - Order summary sidebar with price breakdown
+    - Progress indicator with step icons
+    - Form validation with error messages
+  - `OrderConfirmationPage.jsx` - Post-order confirmation with:
+    - Order ID display with copy button
+    - Order timeline (Placed → Processing → Delivery)
+    - Order details and item list
+    - Shipping address summary
+    - WhatsApp order confirmation button
+    - View Orders and Continue Shopping CTAs
+  - `AccountPage.jsx` - User account dashboard with:
+    - Three tabs: My Orders, Addresses, Profile
+    - Order history with status badges
+    - Saved addresses management
+    - Profile settings form
+    - Logout functionality
+
+### Changed
+- Updated `App.jsx`:
+  - Added routes for `/checkout`, `/order-confirmation/:orderId`, `/account`, `/account/:tab`
+  - Added openLogin event listener for checkout login trigger
+  - Imported useEffect hook
+- Updated `pages/index.js` with new page exports
+
+### Technical Details
+- Orders stored in localStorage (mock backend for V1)
+- Cash on Delivery payment method (mock for V1)
+- WhatsApp integration for order confirmation
+- Form validation for Indian phone numbers and PIN codes
+- Responsive design for all checkout steps
 
 ---
 
@@ -328,6 +368,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Description |
 |---------|------|-------------|
+| 0.10.0 | 2026-01-20 | Sprint 10: Checkout & Orders with multi-step checkout flow |
 | 0.9.0 | 2026-01-20 | Sprint 9: Cart System with CartPage and enhanced useCart hook |
 | 0.8.0 | 2026-01-20 | Sprint 8: Shop & Product Pages with real qtways.com data |
 | 0.7.0 | 2026-01-20 | Sprint 7: Phone OTP authentication system |

@@ -1,7 +1,7 @@
 # QTWAYS Website - Implementation Progress
 
 > **Last Updated**: January 20, 2026
-> **Current Sprint**: V1 - Sprint 10 (Checkout & Orders)
+> **Current Sprint**: V1 - Sprint 11 (Polish & Testing)
 > **Status**: MVP Complete, V1 In Progress
 
 ---
@@ -26,7 +26,7 @@
 | Sprint 7: Authentication System | Completed | 100% |
 | Sprint 8: Shop & Product Pages | Completed | 100% |
 | Sprint 9: Cart System | Completed | 100% |
-| Sprint 10: Checkout & Orders | Pending | 0% |
+| Sprint 10: Checkout & Orders | Completed | 100% |
 | Sprint 11: Polish & Testing | Pending | 0% |
 
 ---
@@ -325,7 +325,112 @@ src/data/
 
 ---
 
+## Sprint 9: Cart System (COMPLETED)
+
+- [x] Enhanced useCart hook with computed values
+  - [x] total (subtotal + shipping)
+  - [x] totalSavings (sum of discounts)
+  - [x] shippingCost (₹49 or free if subtotal >= ₹999)
+  - [x] freeShippingThreshold constant
+- [x] Created CartPage component with:
+  - [x] Responsive cart item list with product images
+  - [x] Quantity controls (increase/decrease)
+  - [x] Remove item functionality
+  - [x] Clear cart button
+  - [x] Free shipping progress bar
+  - [x] Order summary sidebar
+  - [x] Promo code input with validation (WELCOME10 = 10% off)
+  - [x] Price breakdown (subtotal, savings, shipping, total)
+  - [x] Trust badges
+  - [x] Continue shopping and checkout CTAs
+- [x] Updated CartDrawer with improved order summary
+- [x] Updated App.jsx with /cart route
+
+### Files Created/Modified:
+```
+src/pages/
+└── CartPage.jsx            → Full cart page component
+
+src/hooks/
+└── useCart.js              → Enhanced with computed values
+
+src/components/common/
+└── CartDrawer.jsx          → Updated price display
+```
+
+---
+
+## Sprint 10: Checkout & Orders (COMPLETED)
+
+- [x] Created CheckoutPage with multi-step flow:
+  - [x] Step 1: Login (redirects to shipping if authenticated)
+  - [x] Step 2: Shipping address form (Indian states dropdown)
+  - [x] Step 3: Order review with edit options
+  - [x] Order summary sidebar with price breakdown
+  - [x] Progress indicator with step icons
+  - [x] Form validation with error messages
+- [x] Created OrderConfirmationPage with:
+  - [x] Order ID display with copy button
+  - [x] Order timeline (Placed → Processing → Delivery)
+  - [x] Order details and item list
+  - [x] Shipping address summary
+  - [x] WhatsApp order confirmation button
+  - [x] View Orders and Continue Shopping CTAs
+- [x] Created AccountPage with:
+  - [x] Three tabs: My Orders, Addresses, Profile
+  - [x] Order history with status badges
+  - [x] Saved addresses management
+  - [x] Profile settings form
+  - [x] Logout functionality
+- [x] Added openLogin event listener to App.jsx
+
+### Files Created:
+```
+src/pages/
+├── CheckoutPage.jsx          → Multi-step checkout flow
+├── OrderConfirmationPage.jsx → Post-order confirmation
+└── AccountPage.jsx           → User account dashboard
+```
+
+### Technical Details:
+- Orders stored in localStorage (mock backend for V1)
+- Cash on Delivery payment method (mock for V1)
+- WhatsApp integration for order confirmation
+- Form validation for Indian phone numbers and PIN codes
+- Custom event dispatching for cross-component communication
+
+---
+
 ## Session Log
+
+### Session 8 - January 20, 2026
+**Focus**: Sprint 10 (Checkout & Orders)
+
+#### Sprint 10 Completed:
+- [x] Created CheckoutPage with multi-step checkout flow
+- [x] Created OrderConfirmationPage with order timeline
+- [x] Created AccountPage with tabs for orders, addresses, profile
+- [x] Added openLogin event listener to App.jsx for checkout integration
+- [x] Tested checkout flow via Playwright
+- [x] Updated App.jsx with new routes
+- [x] Updated pages barrel export
+
+#### Files Created:
+- `src/pages/CheckoutPage.jsx` - Multi-step checkout (Login → Shipping → Review)
+- `src/pages/OrderConfirmationPage.jsx` - Order confirmation with WhatsApp
+- `src/pages/AccountPage.jsx` - User account dashboard
+
+#### Files Modified:
+- `src/App.jsx` - Added routes and openLogin event listener
+- `src/pages/index.js` - Added new page exports
+
+#### Summary:
+- **Checkout Flow**: Complete multi-step process with form validation
+- **Order Confirmation**: Timeline view with WhatsApp integration
+- **Account Dashboard**: Orders, addresses, and profile management
+- **Next**: Sprint 11 - Polish & Testing
+
+---
 
 ### Session 6 - January 20, 2026
 **Focus**: Sprint 8 (Shop & Product Pages)

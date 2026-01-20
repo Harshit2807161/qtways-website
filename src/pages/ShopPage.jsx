@@ -536,6 +536,7 @@ const FilterSection = ({ title, isExpanded, onToggle, children }) => (
   <div className="border-b border-cream-200 py-4 last:border-b-0">
     <button
       onClick={onToggle}
+      aria-expanded={isExpanded}
       className="flex items-center justify-between w-full text-left"
     >
       <span className="font-medium text-charcoal-900">{title}</span>

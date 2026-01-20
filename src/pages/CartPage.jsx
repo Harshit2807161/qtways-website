@@ -332,7 +332,7 @@ const CartItemRow = ({ item, onUpdateQuantity, onRemove }) => {
             alt={item.name}
             className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-lg"
             onError={(e) => {
-              e.target.src = 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=100&q=80';
+              e.target.src = '/images/placeholder-product.jpg';
             }}
           />
         </Link>

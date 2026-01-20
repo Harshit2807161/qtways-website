@@ -10,7 +10,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned
-- Sprint 11: Polish & Testing
+- V1 launch preparations
+
+---
+
+## [0.11.0] - 2026-01-20
+
+### Fixed
+- **Sprint 11: Polish & Testing**
+  - **Accessibility (Blockers)**:
+    - Added `role="alert"` to form error messages in CheckoutPage for screen reader compatibility
+    - Added ARIA tabs pattern (`role="tablist"`, `role="tab"`, `aria-selected`, `role="tabpanel"`) to ProductDetailPage
+    - Added `aria-expanded` attribute to ShopPage filter section toggles
+  - **Performance (High-Priority)**:
+    - Removed `loading="lazy"` from Hero mobile image (above-fold LCP content)
+    - Added loading/success states to ProductCard Quick Add button
+    - Added `pauseOnMouseEnter` to Testimonials carousel autoplay (WCAG 2.2.2 compliance)
+  - **Polish (Medium-Priority)**:
+    - Synced style-guide.md color values with actual Tailwind config
+    - Replaced Unsplash fallback images with local placeholder in CartPage and AccountPage
+
+### Changed
+- Updated `context/style-guide.md` to match actual color values in `tailwind.config.js`
+- Enhanced `ProductCard.jsx` with loading/success state feedback on Quick Add
+- Updated `Testimonials.jsx` with hover pause functionality
 
 ---
 
@@ -368,6 +391,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Description |
 |---------|------|-------------|
+| 0.11.0 | 2026-01-20 | Sprint 11: Polish & Testing - accessibility, performance, UX |
 | 0.10.0 | 2026-01-20 | Sprint 10: Checkout & Orders with multi-step checkout flow |
 | 0.9.0 | 2026-01-20 | Sprint 9: Cart System with CartPage and enhanced useCart hook |
 | 0.8.0 | 2026-01-20 | Sprint 8: Shop & Product Pages with real qtways.com data |

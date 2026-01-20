@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, ShoppingBag } from 'lucide-react';
+import { Heart, ShoppingBag, Check, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { cn, formatPrice, calculateDiscount } from '../../utils';
 import { Badge, SaleBadge, NewBadge, BestsellerBadge } from './Badge';
@@ -14,6 +15,8 @@ export const ProductCard = ({
   onWishlist,
   ...props
 }) => {
+  const [quickAddState, setQuickAddState] = useState('idle'); // idle, loading, success
+
   const {
     id,
     name,
@@ -36,8 +39,14 @@ export const ProductCard = ({
   const handleQuickAdd = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (onQuickAdd) {
+    if (onQuickAdd && quickAddState === 'idle') {
+      setQuickAddState('loading');
       onQuickAdd(product);
+      // Show success state briefly
+      setTimeout(() => {
+        setQuickAddState('success');
+        setTimeout(() => setQuickAddState('idle'), 1500);
+      }, 300);
     }
   };
 
@@ -94,10 +103,32 @@ export const ProductCard = ({
             {showQuickAdd && inStock && (
               <button
                 onClick={handleQuickAdd}
-                className="flex-1 flex items-center justify-center gap-2 py-2 px-4 bg-white text-charcoal-900 text-sm font-medium rounded-md hover:bg-cream-50 transition-colors"
+                disabled={quickAddState !== 'idle'}
+                className={cn(
+                  "flex-1 flex items-center justify-center gap-2 py-2 px-4 text-sm font-medium rounded-md transition-colors",
+                  quickAddState === 'success'
+                    ? 'bg-sage-500 text-white'
+                    : 'bg-white text-charcoal-900 hover:bg-cream-50'
+                )}
               >
-                <ShoppingBag className="w-4 h-4" />
-                Quick Add
+                {quickAddState === 'loading' && (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Adding...
+                  </>
+                )}
+                {quickAddState === 'success' && (
+                  <>
+                    <Check className="w-4 h-4" />
+                    Added!
+                  </>
+                )}
+                {quickAddState === 'idle' && (
+                  <>
+                    <ShoppingBag className="w-4 h-4" />
+                    Quick Add
+                  </>
+                )}
               </button>
             )}
             <button

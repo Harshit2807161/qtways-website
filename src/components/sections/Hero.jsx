@@ -110,7 +110,6 @@ export const Hero = ({ className, ...props }) => {
                 src="/images/hero-product.jpg"
                 alt="QTWAYS Premium Skincare Collection"
                 className="w-full h-full object-cover"
-                loading="lazy"
                 onError={(e) => {
                   e.target.src = 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&q=80';
                 }}

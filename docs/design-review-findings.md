@@ -1,181 +1,233 @@
 # Design Review Findings - QTWAYS Website
 
-> Review conducted: January 11, 2026
-> Reviewed against: `context/design-principles.md` and `context/style-guide.md`
+> **Previous Review:** January 11, 2026 - All issues resolved on January 12, 2026
+> **Current Review:** January 20, 2026
+> **Reviewed against:** `context/design-principles.md` and `context/style-guide.md`
+> **Scope:** Homepage, Shop, Product Detail, Cart, Checkout pages
 
 ---
 
 ## Summary
 
+The QTWAYS e-commerce website demonstrates a strong foundation with thoughtful implementation of a luxury skincare aesthetic. The design system is well-structured with consistent color tokens, typography hierarchy, and reusable components. The codebase shows excellent attention to accessibility basics (skip links, ARIA labels, focus states) and responsive design patterns.
+
 | Severity | Count | Status |
 |----------|-------|--------|
-| Critical | 3 | ✅ Fixed |
-| Major | 5 | ✅ Fixed |
-| Minor | 4 | ✅ Fixed |
-
-> **All issues resolved on January 12, 2026**
+| Blocker | 2 | Pending |
+| High-Priority | 5 | Pending |
+| Medium-Priority | 7 | Pending |
+| Nitpicks | 6 | Pending |
 
 ---
 
-## Critical Issues
+## Blockers
 
-### 1. Missing Skip-to-Content Link
-**Location:** `App.jsx`
-**Issue:** No skip-to-content link for keyboard users to bypass navigation.
-**Design Principle:** Accessibility Checklist - "Skip to main content link"
-**Fix:**
-```jsx
-// Add at start of App component, before AnnouncementBar
-<a
-  href="#main-content"
-  className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-gold-500 focus:text-white focus:rounded-md"
->
-  Skip to main content
-</a>
-// Add id="main-content" to the main content div
-```
-
-### 2. Missing ARIA Labels on Icon Buttons
-**Location:** `Header.jsx`, `MobileNav.jsx`, `CartDrawer.jsx`
-**Issue:** Some icon-only buttons lack `aria-label` attributes.
+### 1. Form Error Messages Not Accessible to Screen Readers
+**Location:** `C:\personal projects\qtways-website\src\pages\CheckoutPage.jsx`
+**Issue:** Error messages appear visually but lack `role="alert"` or `aria-live="polite"` attributes.
 **Design Principle:** Accessibility - "ARIA labels where needed"
-**Fix:** Audit all icon buttons and add descriptive aria-labels.
-
-### 3. Newsletter Input Missing Visible Label
-**Location:** `Newsletter.jsx:83-90`
-**Issue:** Input has placeholder but no `<label>` element.
-**Design Principle:** Forms - "Labels above inputs"
-**Fix:**
+**Impact:** Screen reader users won't be notified when validation errors occur.
+**Fix:** Add `role="alert"` to error message containers:
 ```jsx
-<label htmlFor="email-input" className="sr-only">Email address</label>
-<input id="email-input" ... />
+{formErrors.fullName && (
+  <p role="alert" className="text-sm text-coral-500 mt-1">{formErrors.fullName}</p>
+)}
 ```
 
----
-
-## Major Issues
-
-### 4. Background Color Inconsistency
-**Location:** `ShopByConcern.jsx:27`, `Testimonials.jsx:26`, `BrandStory.jsx`
-**Issue:** Using `bg-white` instead of cream tones per style guide.
-**Design Principle:** "Don't use pure white (#FFFFFF) for backgrounds"
-**Current:** `bg-white`
-**Fix:** Change to `bg-cream-50` for consistency with warm theme.
-
-### 5. Missing Lazy Loading on Images
-**Location:** `Hero.jsx:110-117`, `CategoryCard.jsx`, various sections
-**Issue:** Hero image and some category images missing `loading="lazy"`.
-**Design Principle:** Performance - "Images optimized and lazy loaded"
-**Fix:** Add `loading="lazy"` to all below-fold images.
-
-### 6. Text Color Inconsistencies
-**Location:** Multiple files
-**Issue:** Using `charcoal-500` for secondary text instead of `charcoal-600`.
-**Style Guide:** "charcoal-600 (#5C5C5C) - Secondary text, captions"
-**Files to update:**
-- `Hero.jsx:89,93,97` - Stats labels use `charcoal-500`
-- `ShopByConcern.jsx:70` - Uses `charcoal-500`
-**Fix:** Change `text-charcoal-500` to `text-charcoal-600`.
-
-### 7. Hero Image Hidden on Mobile
-**Location:** `Hero.jsx:103-141`
-**Issue:** Hero image container has `hidden lg:block`, showing nothing on mobile.
-**Design Principle:** Mobile-first design
-**Fix:** Consider showing a smaller/cropped hero image on mobile, or add visual interest to text-only mobile view.
-
-### 8. Missing Focus States
-**Location:** Various interactive elements
-**Issue:** Not all interactive elements have visible focus states.
-**Design Principle:** "Focus visible on all interactive elements"
-**Fix:** Audit and add `focus-visible:ring-2 focus-visible:ring-gold-500` to:
-- Footer social links
-- Newsletter input (already has, verify)
-- All Link components that aren't buttons
+### 2. Incomplete ID-Label Associations in Some Form Fields
+**Location:** `C:\personal projects\qtways-website\src\pages\CheckoutPage.jsx`
+**Issue:** While labels exist, some form inputs don't have explicit `htmlFor` + `id` associations in all cases.
+**Design Principle:** Accessibility - Forms must be screen reader compatible
+**Impact:** Screen readers may not properly announce field labels.
+**Fix:** Ensure all input fields have matching `id` attributes and their labels have `htmlFor` attributes.
 
 ---
 
-## Minor Issues
+## High-Priority
 
-### 9. ShopByConcern Grid Layout
-**Location:** `ShopByConcern.jsx:49`
-**Issue:** 5-column grid on desktop (`lg:grid-cols-5`) may look unbalanced.
-**Current:** `grid-cols-2 md:grid-cols-3 lg:grid-cols-5`
-**Fix:** Consider `lg:grid-cols-4` for better visual balance, or ensure content fills 5 columns evenly.
+### 3. Color Token Mismatch Between Style Guide and Tailwind Config
+**Location:** `C:\personal projects\qtways-website\tailwind.config.js`
+**Issue:** Documented colors differ from implementation:
 
-### 10. Missing Title Attributes on Social Icons
-**Location:** `Footer.jsx:41-52`
-**Issue:** Social links have `aria-label` but no `title` for hover tooltip.
-**Fix:** Add `title={key}` to show platform name on hover.
+| Token | Style Guide | Tailwind Config |
+|-------|-------------|-----------------|
+| gold-500 | #D4A853 | #B8973D |
+| sage-500 | #7C9A7C | #6B8E6B |
+| coral-500 | #E07B67 | #E57373 |
 
-### 11. Animation Delay Inconsistency
-**Location:** Multiple section files
-**Issue:** Stagger delays vary (0.05, 0.1, 0.2) without clear pattern.
-**Design Principle:** "Stagger delays: 50-100ms between items"
-**Fix:** Standardize to 0.1s (100ms) for all staggered animations.
+**Design Principle:** Style Guide color specifications
+**Impact:** Visual inconsistency between documented design system and actual implementation.
+**Fix:** Either update `tailwind.config.js` to match style guide, or update `context/style-guide.md` to document actual colors.
 
-### 12. Hero Badge Colors
-**Location:** `Hero.jsx:31`
-**Issue:** Badge uses `bg-gold-100 text-gold-700` which doesn't match Badge component.
-**Style Guide:** Badges should use defined variants.
-**Fix:** Consider using the Badge component or matching its color scheme.
+### 4. Product Card Quick Add Button Lacks Loading/Feedback State
+**Location:** `C:\personal projects\qtways-website\src\components\ui\ProductCard.jsx` (lines 94-101)
+**Issue:** The "Quick Add" button calls `onQuickAdd(product)` without showing loading or success feedback.
+**Design Principle:** Component Checklist - "Loading states for async actions"
+**Impact:** Users may click multiple times, creating duplicate cart entries.
+**Fix:** Add loading state and success feedback similar to ProductDetailPage implementation.
 
----
+### 5. Testimonials Carousel Auto-play Without Pause Controls
+**Location:** `C:\personal projects\qtways-website\src\components\sections\Testimonials.jsx` (line 96)
+**Issue:** Uses `autoplay={{ delay: 5000, disableOnInteraction: false }}` without pause button.
+**Design Principle:** Accessibility - "Pause animations on hover where appropriate"
+**Impact:** WCAG 2.2.2 requires pause/stop mechanisms for auto-advancing content.
+**Fix:** Add a visible pause/play button or disable autoplay.
 
-## Responsive Testing Checklist
+### 6. Mobile Filter Drawer Animation Without Reduced Motion Check
+**Location:** `C:\personal projects\qtways-website\src\pages\ShopPage.jsx` (lines 628-686)
+**Issue:** Spring animation (`type: 'spring', damping: 25, stiffness: 200`) may cause motion discomfort.
+**Design Principle:** Animation Guidelines - "Respect prefers-reduced-motion"
+**Impact:** Users with vestibular disorders may experience discomfort.
+**Fix:** Add Framer Motion's `useReducedMotion` hook to disable springs when preferred.
 
-### 375px (Mobile)
-- [ ] Hero text readable without horizontal scroll
-- [ ] Navigation hamburger menu visible and functional
-- [ ] Product cards stack properly
-- [ ] Touch targets are 44px minimum
-- [ ] Footer columns stack vertically
-
-### 768px (Tablet)
-- [ ] Grid layouts adjust to 2-3 columns
-- [ ] Hero content centered
-- [ ] Navigation still uses mobile menu
-- [ ] Product carousel shows 2 slides
-
-### 1440px (Desktop)
-- [ ] Container width is appropriate (now 1400px on 2xl)
-- [ ] Full navigation visible
-- [ ] Hero shows side-by-side layout with image
-- [ ] Product carousel shows 4 slides
-- [ ] Footer shows 4-column grid
+### 7. Hero Section Mobile Image Uses Lazy Loading on Above-Fold Content
+**Location:** `C:\personal projects\qtways-website\src\components\sections\Hero.jsx` (line 113)
+**Issue:** Mobile hero image uses `loading="lazy"` but it's above-the-fold.
+**Design Principle:** Performance - "LCP < 2.5s"
+**Impact:** Negatively impacts Largest Contentful Paint on mobile.
+**Fix:** Remove `loading="lazy"` from the mobile hero image.
 
 ---
 
-## Action Items
+## Medium-Priority
 
-1. **Accessibility Sprint** (Critical)
-   - Add skip-to-content link
-   - Add missing aria-labels
-   - Add Newsletter label
-   - Test with screen reader
+### 8. Newsletter Form Success State Could Be More Prominent
+**Location:** `C:\personal projects\qtways-website\src\components\sections\Newsletter.jsx`
+**Issue:** On success, only button text changes and small message appears.
+**Design Principle:** Clear feedback for user actions
+**Fix:** Consider replacing form with success message or adding prominent checkmark animation.
 
-2. **Visual Consistency Sprint** (Major)
-   - Fix background colors
-   - Fix text colors
-   - Add lazy loading
-   - Review mobile hero
+### 9. Cart Item Images Using External Fallback
+**Location:** `C:\personal projects\qtways-website\src\pages\CartPage.jsx` (lines 334-336)
+**Issue:** Fallback to Unsplash image may be slow or unavailable.
+**Design Principle:** Robust error handling
+**Fix:** Use local placeholder image from `/images/placeholder-product.jpg`.
 
-3. **Polish Sprint** (Minor)
-   - Standardize animations
-   - Fix grid layouts
-   - Add title attributes
-   - Update badge colors
+### 10. ShopByConcern Uses Hardcoded Icon Mapping
+**Location:** `C:\personal projects\qtways-website\src\components\sections\ShopByConcern.jsx` (lines 6-15)
+**Issue:** Icon mapping uses generic fallbacks (`Sparkles: Sun`, `Layers: Target`).
+**Fix:** Create comprehensive icon registry or store icon name in data file.
+
+### 11. Missing Breadcrumb Schema Markup
+**Location:** `C:\personal projects\qtways-website\src\pages\ShopPage.jsx`, `C:\personal projects\qtways-website\src\pages\ProductDetailPage.jsx`
+**Issue:** Breadcrumbs lack JSON-LD schema for SEO.
+**Fix:** Add `<script type="application/ld+json">` with BreadcrumbList schema.
+
+### 12. Checkout Login Uses Custom Event Pattern
+**Location:** `C:\personal projects\qtways-website\src\pages\CheckoutPage.jsx` (lines 296-298)
+**Issue:** `window.dispatchEvent(new CustomEvent('openLogin'))` is fragile.
+**Fix:** Use React Context or prop drilling for more reliable state management.
+
+### 13. Sticky Sidebar May Overlap Footer
+**Location:** `C:\personal projects\qtways-website\src\pages\CartPage.jsx` (line 191)
+**Issue:** `sticky top-24` without bottom constraint.
+**Fix:** Add `max-h-[calc(100vh-96px)] overflow-auto` or use CSS `position: sticky` with bottom margin.
+
+### 14. Product Detail Tabs Missing ARIA Pattern
+**Location:** `C:\personal projects\qtways-website\src\pages\ProductDetailPage.jsx` (lines 417-435)
+**Issue:** Tab interface doesn't implement full ARIA tabs pattern.
+**Fix:** Add `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-selected`, `aria-controls`.
 
 ---
 
-## Files to Modify
+## Nitpicks
+
+### Nit: Button Loading State Shows Generic Text
+**Location:** `C:\personal projects\qtways-website\src\components\ui\Button.jsx` (line 73)
+**Issue:** Loading state always shows "Loading..." regardless of context.
+**Fix:** Add `loadingText` prop for contextual messages.
+
+### Nit: Footer Payment Image Silently Hides on Error
+**Location:** `C:\personal projects\qtways-website\src\components\layout\Footer.jsx` (line 163)
+**Issue:** `onError` sets `display: 'none'` without visual indication.
+**Fix:** Remove container entirely or show text fallback.
+
+### Nit: Mobile Nav Escape Key Without Visual Hint
+**Location:** `C:\personal projects\qtways-website\src\components\layout\MobileNav.jsx` (lines 45-57)
+**Issue:** Escape key closes menu but there's no hint for users.
+**Fix:** Add "Press ESC to close" text or tooltip.
+
+### Nit: TrustBadges Heading Hierarchy
+**Location:** `C:\personal projects\qtways-website\src\components\sections\TrustBadges.jsx` (line 34)
+**Issue:** Uses `<h3>` without parent `<h2>` in section.
+**Fix:** Either add section heading or use `<p>` with bold styling.
+
+### Nit: Filter Section Toggle Missing ARIA Expanded
+**Location:** `C:\personal projects\qtways-website\src\pages\ShopPage.jsx` (lines 537-548)
+**Issue:** Expand/collapse button lacks `aria-expanded` attribute.
+**Fix:** Add `aria-expanded={isExpanded}` to toggle buttons.
+
+### Nit: Inconsistent Section Background Pattern
+**Issue:** Some sections use `bg-cream-50`, some `bg-white`, some `bg-cream-100`.
+**Fix:** Document intentional alternation pattern or standardize.
+
+---
+
+## Positive Observations
+
+1. **Skip Link Implementation** - Properly implemented with screen reader support (`sr-only focus:not-sr-only`).
+
+2. **Consistent Design Tokens** - Custom Tailwind classes (`container-custom`, `section-padding`, `shadow-soft`) promote consistency.
+
+3. **Global Focus States** - `globals.css` defines focus-visible styles across the site.
+
+4. **Reduced Motion Support** - `@media (prefers-reduced-motion: reduce)` properly implemented.
+
+5. **Component Architecture** - Clean separation between layout, sections, and UI components.
+
+6. **Mobile Nav Scroll Lock** - Body scroll properly locked when mobile nav is open.
+
+7. **Semantic HTML** - Good use of `<main>`, `<nav>`, `<section>`, `<article>`, `<footer>`.
+
+8. **Loading States** - Cart and checkout show loading indicators during async operations.
+
+9. **Empty State Handling** - Cart and search show helpful empty states with CTAs.
+
+10. **Image Error Handling** - Consistent fallback patterns across components.
+
+---
+
+## Files Requiring Updates
 
 | File | Issues |
 |------|--------|
-| `App.jsx` | #1 (skip link) |
-| `Header.jsx` | #2 (aria-labels) |
-| `Hero.jsx` | #5, #6, #7, #12 |
-| `Newsletter.jsx` | #3 (label) |
-| `ShopByConcern.jsx` | #4, #6, #9 |
-| `Testimonials.jsx` | #4 |
-| `Footer.jsx` | #10 |
-| `globals.css` | #8 (focus styles) |
+| `src/pages/CheckoutPage.jsx` | #1, #2, #12 |
+| `tailwind.config.js` | #3 |
+| `src/components/ui/ProductCard.jsx` | #4 |
+| `src/components/sections/Testimonials.jsx` | #5 |
+| `src/pages/ShopPage.jsx` | #6, Nit #5 |
+| `src/components/sections/Hero.jsx` | #7 |
+| `src/components/sections/Newsletter.jsx` | #8 |
+| `src/pages/CartPage.jsx` | #9, #13 |
+| `src/components/sections/ShopByConcern.jsx` | #10 |
+| `src/pages/ProductDetailPage.jsx` | #11, #14 |
+| `src/components/ui/Button.jsx` | Nit #1 |
+| `src/components/layout/Footer.jsx` | Nit #2 |
+| `src/components/layout/MobileNav.jsx` | Nit #3 |
+| `src/components/sections/TrustBadges.jsx` | Nit #4 |
+
+---
+
+## Recommended Action Priority
+
+### Immediate (Before Launch)
+1. Add `role="alert"` to form error messages (#1)
+2. Verify all form label associations (#2)
+3. Fix color token documentation mismatch (#3)
+4. Remove lazy loading from hero mobile image (#7)
+
+### Short-Term (This Sprint)
+1. Add loading states to Quick Add buttons (#4)
+2. Add pause control to testimonials carousel (#5)
+3. Implement reduced motion check in animations (#6)
+4. Add ARIA tabs pattern to product detail (#14)
+
+### Future Enhancements
+1. Add JSON-LD breadcrumb schema (#11)
+2. Replace custom event with context pattern (#12)
+3. Fix sticky sidebar footer overlap (#13)
+4. Address all nitpicks
+
+---
+
+*This review was conducted based on static code analysis. Live testing in multiple browsers and with assistive technologies is recommended for comprehensive accessibility validation.*

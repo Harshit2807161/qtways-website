@@ -47,19 +47,19 @@
 | Name | Hex | Tailwind | Usage |
 |------|-----|----------|-------|
 | Cream 50 | #FDFBF7 | `cream-50` | Page background |
-| Cream 100 | #FAF7F2 | `cream-100` | Card background |
-| Cream 200 | #F5F0E8 | `cream-200` | Borders, dividers |
-| Cream 300 | #EBE4D8 | `cream-300` | Hover states |
-| Cream 400 | #DDD3C2 | `cream-400` | Disabled elements |
+| Cream 100 | #FAF6ED | `cream-100` | Card background |
+| Cream 200 | #F5EED8 | `cream-200` | Borders, dividers |
+| Cream 300 | #EDE4C5 | `cream-300` | Hover states |
+| Cream 400 | #E5D9B0 | `cream-400` | Disabled elements |
 
 #### Gold (Accent)
 | Name | Hex | Tailwind | Usage |
 |------|-----|----------|-------|
-| Gold 300 | #E8C87A | `gold-300` | Light accents |
-| Gold 400 | #DEB964 | `gold-400` | Icons, highlights |
-| Gold 500 | #D4A853 | `gold-500` | Primary accent |
-| Gold 600 | #C49A47 | `gold-600` | Hover states |
-| Gold 700 | #A8833D | `gold-700` | Active states |
+| Gold 300 | #D4BC7A | `gold-300` | Light accents |
+| Gold 400 | #C9A962 | `gold-400` | Icons, highlights |
+| Gold 500 | #B8973D | `gold-500` | Primary accent |
+| Gold 600 | #9A7B2F | `gold-600` | Hover states |
+| Gold 700 | #7D6326 | `gold-700` | Active states |
 
 #### Charcoal (Text)
 | Name | Hex | Tailwind | Usage |
@@ -79,24 +79,24 @@
 #### Sage (CTA)
 | Name | Hex | Tailwind | Usage |
 |------|-----|----------|-------|
-| Sage 400 | #8DAB8D | `sage-400` | Light CTA |
-| Sage 500 | #7C9A7C | `sage-500` | Primary CTA |
-| Sage 600 | #6B8A6B | `sage-600` | CTA hover |
-| Sage 700 | #5A7A5A | `sage-700` | CTA active |
+| Sage 400 | #7DA37D | `sage-400` | Light CTA |
+| Sage 500 | #6B8E6B | `sage-500` | Primary CTA |
+| Sage 600 | #5A7A5A | `sage-600` | CTA hover |
+| Sage 700 | #4A664A | `sage-700` | CTA active |
 
 #### Coral (Alerts)
 | Name | Hex | Tailwind | Usage |
 |------|-----|----------|-------|
-| Coral 400 | #E99485 | `coral-400` | Light error |
-| Coral 500 | #E07B67 | `coral-500` | Sale, error |
-| Coral 600 | #D4685A | `coral-600` | Error hover |
+| Coral 400 | #F08A8A | `coral-400` | Light error |
+| Coral 500 | #E57373 | `coral-500` | Sale, error |
+| Coral 600 | #D65C5C | `coral-600` | Error hover |
 
 #### Blush (Soft)
 | Name | Hex | Tailwind | Usage |
 |------|-----|----------|-------|
 | Blush 50 | #FDF8F6 | `blush-50` | Soft backgrounds |
-| Blush 100 | #F9EDE9 | `blush-100` | Highlights |
-| Blush 200 | #F3DDD6 | `blush-200` | Borders |
+| Blush 100 | #FBEEE9 | `blush-100` | Highlights |
+| Blush 200 | #F7DCD3 | `blush-200` | Borders |
 
 ---
 

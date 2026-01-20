@@ -416,10 +416,14 @@ export const ProductDetailPage = () => {
         <div className="mt-12 md:mt-16">
           {/* Tab Headers */}
           <div className="border-b border-cream-200">
-            <div className="flex overflow-x-auto gap-8">
+            <div role="tablist" aria-label="Product information" className="flex overflow-x-auto gap-8">
               {TABS.map(tab => (
                 <button
                   key={tab.id}
+                  role="tab"
+                  id={`tab-${tab.id}`}
+                  aria-selected={activeTab === tab.id}
+                  aria-controls={`panel-${tab.id}`}
                   onClick={() => setActiveTab(tab.id)}
                   className={cn(
                     'pb-4 text-sm font-medium whitespace-nowrap border-b-2 transition-colors',
@@ -435,7 +439,12 @@ export const ProductDetailPage = () => {
           </div>
 
           {/* Tab Content */}
-          <div className="py-8">
+          <div
+            role="tabpanel"
+            id={`panel-${activeTab}`}
+            aria-labelledby={`tab-${activeTab}`}
+            className="py-8"
+          >
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}

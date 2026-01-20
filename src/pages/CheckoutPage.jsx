@@ -350,7 +350,7 @@ export const CheckoutPage = () => {
                         placeholder="Enter your full name"
                       />
                       {formErrors.fullName && (
-                        <p className="text-sm text-coral-500 mt-1">{formErrors.fullName}</p>
+                        <p role="alert" className="text-sm text-coral-500 mt-1">{formErrors.fullName}</p>
                       )}
                     </div>
 
@@ -377,7 +377,7 @@ export const CheckoutPage = () => {
                         />
                       </div>
                       {formErrors.phone && (
-                        <p className="text-sm text-coral-500 mt-1">{formErrors.phone}</p>
+                        <p role="alert" className="text-sm text-coral-500 mt-1">{formErrors.phone}</p>
                       )}
                     </div>
 
@@ -398,7 +398,7 @@ export const CheckoutPage = () => {
                         placeholder="House/Flat No., Building Name, Street"
                       />
                       {formErrors.addressLine1 && (
-                        <p className="text-sm text-coral-500 mt-1">{formErrors.addressLine1}</p>
+                        <p role="alert" className="text-sm text-coral-500 mt-1">{formErrors.addressLine1}</p>
                       )}
                     </div>
 
@@ -435,7 +435,7 @@ export const CheckoutPage = () => {
                           placeholder="City"
                         />
                         {formErrors.city && (
-                          <p className="text-sm text-coral-500 mt-1">{formErrors.city}</p>
+                          <p role="alert" className="text-sm text-coral-500 mt-1">{formErrors.city}</p>
                         )}
                       </div>
 
@@ -458,7 +458,7 @@ export const CheckoutPage = () => {
                           ))}
                         </select>
                         {formErrors.state && (
-                          <p className="text-sm text-coral-500 mt-1">{formErrors.state}</p>
+                          <p role="alert" className="text-sm text-coral-500 mt-1">{formErrors.state}</p>
                         )}
                       </div>
 
@@ -479,7 +479,7 @@ export const CheckoutPage = () => {
                           maxLength="6"
                         />
                         {formErrors.pincode && (
-                          <p className="text-sm text-coral-500 mt-1">{formErrors.pincode}</p>
+                          <p role="alert" className="text-sm text-coral-500 mt-1">{formErrors.pincode}</p>
                         )}
                       </div>
                     </div>

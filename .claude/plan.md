@@ -968,6 +968,610 @@ export const ProductCard = ({ name, price, image }) => {
 
 ---
 
+# V1 PROJECT REQUIREMENTS DOCUMENT (PRD)
+
+> **Version**: 1.0
+> **Created**: January 19, 2026
+> **Status**: Planning
+> **Branch**: V1
+
+---
+
+## V1 Executive Summary
+
+V1 transforms the QTWAYS website from a static homepage into a functional e-commerce platform with user authentication, product browsing, shopping cart, and checkout flow. This version establishes the backend infrastructure using Vercel serverless functions and MongoDB Atlas.
+
+### V1 Scope Summary
+
+| Feature | Status |
+|---------|--------|
+| Shop Page (Product Listing) | ✅ Included |
+| Product Detail Page | ✅ Included |
+| Cart Page | ✅ Included |
+| Checkout Page | ✅ Included |
+| Phone OTP Authentication | ✅ Included |
+| MongoDB Backend | ✅ Included |
+| User Accounts/Profile | ✅ Included |
+| Order Management | ✅ Included |
+| Payment Integration | ❌ V2 (mock checkout) |
+| Admin Dashboard | ❌ V2 |
+
+---
+
+## V1.1 Goals & Success Metrics
+
+### Goals
+- [ ] Create fully functional e-commerce browsing experience
+- [ ] Implement secure phone OTP authentication
+- [ ] Build shopping cart with persistent state
+- [ ] Complete checkout flow (without real payments)
+- [ ] Store orders in MongoDB for future fulfillment
+
+### Success Metrics
+| Metric | Target |
+|--------|--------|
+| Page Load Time | < 2 seconds |
+| Lighthouse Performance | > 85 |
+| Lighthouse Accessibility | > 90 |
+| Auth Flow Completion | < 30 seconds |
+| Cart Persistence | 100% across sessions |
+
+---
+
+## V1.2 Page Requirements
+
+### Page 1: Shop Page (`/shop`)
+
+**Purpose**: Browse all products with filtering and sorting.
+
+**Features**:
+| Feature | Priority | Description |
+|---------|----------|-------------|
+| Product Grid | High | Responsive grid of ProductCards |
+| Category Filter | High | Filter by Face Care, Body Care, etc. |
+| Concern Filter | High | Filter by skin concern |
+| Price Sort | Medium | Sort by price (low-high, high-low) |
+| Search Integration | Medium | Connect to existing SearchModal |
+| Pagination/Infinite Scroll | Medium | Load more products |
+| Active Filters Display | Low | Show selected filters as chips |
+
+**URL Structure**:
+```
+/shop                           # All products
+/shop?category=face-care        # Filter by category
+/shop?concern=acne-prone-skin   # Filter by concern
+/shop?sort=price-asc            # Sort by price
+```
+
+---
+
+### Page 2: Product Detail Page (`/product/:slug`)
+
+**Purpose**: View full product details and add to cart.
+
+**Sections**:
+| Section | Description |
+|---------|-------------|
+| Image Gallery | Main image + thumbnails, zoom on hover |
+| Product Info | Name, price, discount badge, rating |
+| Variant Selector | Size/quantity selection |
+| Add to Cart | Button with quantity selector |
+| Description Tabs | Details, Ingredients, How to Use, Reviews |
+| Related Products | "You may also like" carousel |
+
+**Features**:
+- Breadcrumb navigation
+- Share buttons (WhatsApp, copy link)
+- Wishlist button
+- Stock status indicator
+- Expected delivery estimate
+
+---
+
+### Page 3: Cart Page (`/cart`)
+
+**Purpose**: Review and modify cart before checkout.
+
+**Features**:
+| Feature | Description |
+|---------|-------------|
+| Cart Items List | Product image, name, price, quantity controls |
+| Quantity Update | +/- buttons with max limit |
+| Remove Item | Delete individual items |
+| Cart Summary | Subtotal, shipping estimate, total |
+| Coupon Code | Input field (mock for V1) |
+| Continue Shopping | Link back to /shop |
+| Proceed to Checkout | CTA button |
+| Empty Cart State | Friendly message with CTA |
+
+**Persistence**:
+- Logged in: MongoDB cart collection
+- Guest: localStorage with merge on login
+
+---
+
+### Page 4: Checkout Page (`/checkout`)
+
+**Purpose**: Collect shipping details and place order.
+
+**Steps**:
+1. **Login/Register** (if not authenticated)
+2. **Shipping Address**
+   - Full name
+   - Phone number
+   - Address line 1 & 2
+   - City, State, PIN code
+   - Save address for future
+3. **Order Review**
+   - Cart items summary
+   - Shipping address
+   - Order total breakdown
+4. **Place Order** (mock payment for V1)
+   - Creates order in MongoDB
+   - Shows order confirmation
+   - Sends WhatsApp/Email notification
+
+**Post-Order**:
+- Order confirmation page with order ID
+- WhatsApp message with order details
+- Redirect to order history
+
+---
+
+## V1.3 Authentication System
+
+### Phone OTP Flow
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Authentication Flow                       │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  1. User enters phone number                                 │
+│     └──→ Validate: 10 digits, Indian format                 │
+│                                                              │
+│  2. Send OTP                                                 │
+│     └──→ Generate 6-digit OTP                               │
+│     └──→ Store in MongoDB with 5-min expiry                 │
+│     └──→ Send via SMS gateway (MSG91/Twilio)                │
+│                                                              │
+│  3. User enters OTP                                          │
+│     └──→ Verify against stored OTP                          │
+│     └──→ Check expiry and attempts                          │
+│                                                              │
+│  4. Success                                                  │
+│     └──→ Create/update user in MongoDB                      │
+│     └──→ Generate JWT token                                 │
+│     └──→ Set httpOnly cookie                                │
+│     └──→ Merge guest cart with user cart                    │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### User Profile Features
+- View/edit profile (name, email - optional)
+- Saved addresses
+- Order history
+- Logout
+
+---
+
+## V1.4 Technical Architecture
+
+### Backend Stack
+
+| Component | Technology | Purpose |
+|-----------|------------|---------|
+| API | Vercel Serverless Functions | API routes in `/api` |
+| Database | MongoDB Atlas (Free Tier) | Data storage |
+| Auth | Custom JWT + httpOnly cookies | Session management |
+| SMS | MSG91 or Twilio | OTP delivery |
+| ODM | Mongoose | MongoDB modeling |
+
+### Project Structure Update
+
+```
+src/
+├── api/                    # Vercel API routes (NEW)
+│   ├── auth/
+│   │   ├── send-otp.js     # POST /api/auth/send-otp
+│   │   ├── verify-otp.js   # POST /api/auth/verify-otp
+│   │   ├── me.js           # GET /api/auth/me
+│   │   └── logout.js       # POST /api/auth/logout
+│   ├── products/
+│   │   ├── index.js        # GET /api/products
+│   │   └── [slug].js       # GET /api/products/:slug
+│   ├── cart/
+│   │   ├── index.js        # GET, POST /api/cart
+│   │   └── [itemId].js     # DELETE /api/cart/:itemId
+│   ├── orders/
+│   │   ├── index.js        # GET, POST /api/orders
+│   │   └── [orderId].js    # GET /api/orders/:orderId
+│   └── user/
+│       ├── profile.js      # GET, PUT /api/user/profile
+│       └── addresses.js    # GET, POST, DELETE /api/user/addresses
+│
+├── lib/                    # Backend utilities (NEW)
+│   ├── mongodb.js          # MongoDB connection
+│   ├── models/             # Mongoose models
+│   │   ├── User.js
+│   │   ├── Product.js
+│   │   ├── Cart.js
+│   │   ├── Order.js
+│   │   └── OTP.js
+│   ├── middleware/
+│   │   └── auth.js         # JWT verification
+│   └── services/
+│       └── sms.js          # SMS gateway integration
+│
+├── pages/                  # New pages (UPDATE)
+│   ├── HomePage.jsx        # (existing)
+│   ├── ShopPage.jsx        # NEW
+│   ├── ProductPage.jsx     # NEW
+│   ├── CartPage.jsx        # NEW
+│   ├── CheckoutPage.jsx    # NEW
+│   ├── OrderConfirmation.jsx # NEW
+│   └── AccountPage.jsx     # NEW (profile, orders, addresses)
+│
+├── components/
+│   ├── auth/               # NEW
+│   │   ├── LoginModal.jsx
+│   │   ├── OTPInput.jsx
+│   │   └── PhoneInput.jsx
+│   ├── shop/               # NEW
+│   │   ├── ProductFilters.jsx
+│   │   ├── SortDropdown.jsx
+│   │   └── ActiveFilters.jsx
+│   ├── product/            # NEW
+│   │   ├── ImageGallery.jsx
+│   │   ├── ProductTabs.jsx
+│   │   ├── QuantitySelector.jsx
+│   │   └── RelatedProducts.jsx
+│   ├── checkout/           # NEW
+│   │   ├── AddressForm.jsx
+│   │   ├── OrderSummary.jsx
+│   │   └── CheckoutSteps.jsx
+│   └── account/            # NEW
+│       ├── OrderHistory.jsx
+│       ├── SavedAddresses.jsx
+│       └── ProfileForm.jsx
+│
+├── context/                # NEW
+│   └── AuthContext.jsx     # Authentication state
+│
+└── hooks/
+    ├── useAuth.js          # NEW - auth state hook
+    ├── useProducts.js      # NEW - product fetching
+    └── useOrders.js        # NEW - order management
+```
+
+### MongoDB Collections
+
+```javascript
+// Users Collection
+{
+  _id: ObjectId,
+  phone: "+917669417555",       // Unique, indexed
+  name: "Customer Name",
+  email: "optional@email.com",
+  createdAt: Date,
+  lastLogin: Date
+}
+
+// Products Collection (migrate from static data)
+{
+  _id: ObjectId,
+  slug: "vitamin-c-serum",      // Unique, indexed
+  name: "Vitamin C Serum",
+  price: 1299,
+  originalPrice: 1599,
+  category: "face-care",
+  concerns: ["brightening", "anti-aging"],
+  images: [...],
+  // ... all product fields
+}
+
+// Carts Collection
+{
+  _id: ObjectId,
+  userId: ObjectId,             // Reference to Users (nullable for guest)
+  sessionId: "uuid",            // For guest carts
+  items: [
+    {
+      productId: ObjectId,
+      quantity: 2,
+      addedAt: Date
+    }
+  ],
+  updatedAt: Date
+}
+
+// Orders Collection
+{
+  _id: ObjectId,
+  orderId: "QTW-2026-001",      // Human-readable ID
+  userId: ObjectId,
+  items: [
+    {
+      productId: ObjectId,
+      name: "Vitamin C Serum",
+      price: 1299,
+      quantity: 1
+    }
+  ],
+  shippingAddress: {
+    name: "...",
+    phone: "...",
+    address: "...",
+    city: "...",
+    state: "...",
+    pincode: "..."
+  },
+  subtotal: 1299,
+  shipping: 0,
+  total: 1299,
+  status: "pending",            // pending, confirmed, shipped, delivered
+  createdAt: Date,
+  updatedAt: Date
+}
+
+// OTPs Collection (TTL index for auto-expiry)
+{
+  _id: ObjectId,
+  phone: "+917669417555",
+  otp: "123456",
+  attempts: 0,
+  createdAt: Date,              // TTL: expires after 5 minutes
+}
+```
+
+---
+
+## V1.5 Environment Variables
+
+```env
+# MongoDB
+MONGODB_URI=mongodb+srv://...
+
+# JWT
+JWT_SECRET=your-secret-key
+
+# SMS Gateway (MSG91)
+MSG91_AUTH_KEY=...
+MSG91_SENDER_ID=QTWAYS
+MSG91_TEMPLATE_ID=...
+
+# Or Twilio
+TWILIO_ACCOUNT_SID=...
+TWILIO_AUTH_TOKEN=...
+TWILIO_PHONE_NUMBER=...
+
+# App
+NEXT_PUBLIC_APP_URL=https://qtways.com
+```
+
+---
+
+## V1.6 Implementation Sprints
+
+### Sprint 6: Backend Foundation
+**Focus**: Set up MongoDB, API routes, and auth infrastructure
+
+**Tasks**:
+- [ ] Set up MongoDB Atlas cluster
+- [ ] Create Mongoose models (User, Product, Cart, Order, OTP)
+- [ ] Implement MongoDB connection utility
+- [ ] Create auth middleware (JWT verification)
+- [ ] Seed products from static data to MongoDB
+- [ ] Create `/api/products` endpoints
+
+**Files**:
+- `lib/mongodb.js`
+- `lib/models/*.js`
+- `lib/middleware/auth.js`
+- `api/products/index.js`
+- `api/products/[slug].js`
+
+---
+
+### Sprint 7: Authentication System
+**Focus**: Phone OTP login flow
+
+**Tasks**:
+- [ ] Implement OTP generation and storage
+- [ ] Integrate SMS gateway (MSG91/Twilio)
+- [ ] Create `/api/auth/*` endpoints
+- [ ] Build LoginModal component
+- [ ] Build PhoneInput and OTPInput components
+- [ ] Create AuthContext for global auth state
+- [ ] Implement useAuth hook
+
+**Files**:
+- `api/auth/send-otp.js`
+- `api/auth/verify-otp.js`
+- `api/auth/me.js`
+- `api/auth/logout.js`
+- `lib/services/sms.js`
+- `components/auth/*.jsx`
+- `context/AuthContext.jsx`
+- `hooks/useAuth.js`
+
+---
+
+### Sprint 8: Shop & Product Pages
+**Focus**: Product browsing experience
+
+**Tasks**:
+- [ ] Build ShopPage with product grid
+- [ ] Implement ProductFilters component
+- [ ] Implement SortDropdown component
+- [ ] Build ProductPage with full details
+- [ ] Create ImageGallery component
+- [ ] Create ProductTabs component
+- [ ] Build RelatedProducts section
+- [ ] Update routing in App.jsx
+
+**Files**:
+- `pages/ShopPage.jsx`
+- `pages/ProductPage.jsx`
+- `components/shop/*.jsx`
+- `components/product/*.jsx`
+- `hooks/useProducts.js`
+
+---
+
+### Sprint 9: Cart System
+**Focus**: Persistent cart with backend sync
+
+**Tasks**:
+- [ ] Create `/api/cart/*` endpoints
+- [ ] Update useCart hook for API integration
+- [ ] Build CartPage component
+- [ ] Implement cart merge on login
+- [ ] Add guest cart with sessionId
+- [ ] Build cart item management UI
+
+**Files**:
+- `api/cart/index.js`
+- `api/cart/[itemId].js`
+- `pages/CartPage.jsx`
+- `hooks/useCart.js` (update)
+
+---
+
+### Sprint 10: Checkout & Orders
+**Focus**: Complete checkout flow
+
+**Tasks**:
+- [ ] Build CheckoutPage with steps
+- [ ] Create AddressForm component
+- [ ] Create OrderSummary component
+- [ ] Create `/api/orders/*` endpoints
+- [ ] Build OrderConfirmation page
+- [ ] Implement WhatsApp order notification
+- [ ] Build AccountPage with order history
+
+**Files**:
+- `pages/CheckoutPage.jsx`
+- `pages/OrderConfirmation.jsx`
+- `pages/AccountPage.jsx`
+- `components/checkout/*.jsx`
+- `components/account/*.jsx`
+- `api/orders/*.js`
+- `api/user/*.js`
+
+---
+
+### Sprint 11: Polish & Testing
+**Focus**: Final refinements
+
+**Tasks**:
+- [ ] Error handling and loading states
+- [ ] Form validation (all forms)
+- [ ] Responsive testing (375px, 768px, 1440px)
+- [ ] Lighthouse audit and optimization
+- [ ] Security review (XSS, CSRF, injection)
+- [ ] User flow testing
+- [ ] Deploy to Vercel
+
+---
+
+## V1.7 API Endpoints Reference
+
+### Authentication
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/send-otp` | Send OTP to phone |
+| POST | `/api/auth/verify-otp` | Verify OTP and login |
+| GET | `/api/auth/me` | Get current user |
+| POST | `/api/auth/logout` | Logout user |
+
+### Products
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/products` | List products (with filters) |
+| GET | `/api/products/:slug` | Get single product |
+
+### Cart
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/cart` | Get user cart |
+| POST | `/api/cart` | Add item to cart |
+| PUT | `/api/cart/:itemId` | Update item quantity |
+| DELETE | `/api/cart/:itemId` | Remove item |
+
+### Orders
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/orders` | List user orders |
+| POST | `/api/orders` | Create order |
+| GET | `/api/orders/:orderId` | Get order details |
+
+### User
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/user/profile` | Get profile |
+| PUT | `/api/user/profile` | Update profile |
+| GET | `/api/user/addresses` | List addresses |
+| POST | `/api/user/addresses` | Add address |
+| DELETE | `/api/user/addresses/:id` | Delete address |
+
+---
+
+## V1.8 Security Considerations
+
+- [ ] JWT tokens in httpOnly cookies (not localStorage)
+- [ ] CSRF protection for state-changing requests
+- [ ] Rate limiting on OTP endpoints (5 attempts max)
+- [ ] Input sanitization on all API endpoints
+- [ ] MongoDB injection prevention (Mongoose)
+- [ ] Phone number validation and normalization
+- [ ] Secure environment variable handling
+
+---
+
+## V1.9 Testing Checklist
+
+### Authentication
+- [ ] Send OTP to valid phone number
+- [ ] Reject invalid phone numbers
+- [ ] Verify correct OTP
+- [ ] Reject incorrect OTP
+- [ ] Expire OTP after 5 minutes
+- [ ] Lock after 5 failed attempts
+- [ ] JWT cookie set correctly
+- [ ] Protected routes redirect to login
+
+### Shopping
+- [ ] Browse all products
+- [ ] Filter by category
+- [ ] Filter by concern
+- [ ] Sort by price
+- [ ] View product details
+- [ ] Add to cart
+- [ ] Update quantity
+- [ ] Remove from cart
+- [ ] Cart persists across refresh
+
+### Checkout
+- [ ] Require login for checkout
+- [ ] Save shipping address
+- [ ] Display order summary
+- [ ] Place order (mock)
+- [ ] Show confirmation
+- [ ] View order history
+
+---
+
+**End of V1 PRD**
+
+---
+
 **End of Plan Document**
 
-*Ready to implement when you are. Run `/continue` to pick up from Step 1.*
+*MVP Complete. V1 Ready to implement. Start with Sprint 6: Backend Foundation.*

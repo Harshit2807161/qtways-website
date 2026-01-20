@@ -23,7 +23,7 @@ export const Testimonials = ({
   if (variant === 'featured' && testimonials.length > 0) {
     return (
       <section
-        className={`section-padding bg-white ${className}`}
+        className={`section-padding bg-cream-50 ${className}`}
         {...props}
       >
         <div className="container-custom">

@@ -18,7 +18,7 @@ export const AnnouncementBar = ({ className, ...props }) => {
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % announcements.length);
-    }, 5000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [isPaused]);

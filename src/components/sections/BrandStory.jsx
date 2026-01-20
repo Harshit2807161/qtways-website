@@ -27,7 +27,7 @@ export const BrandStory = ({
 }) => {
   return (
     <section
-      className={`section-padding bg-white overflow-hidden ${className}`}
+      className={`section-padding bg-cream-50 overflow-hidden ${className}`}
       {...props}
     >
       <div className="container-custom">
@@ -44,6 +44,7 @@ export const BrandStory = ({
                 src="/images/about-story.jpg"
                 alt="QTWAYS Brand Story"
                 className="w-full h-full object-cover"
+                loading="lazy"
                 onError={(e) => {
                   e.target.src = 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&q=80';
                 }}
@@ -97,7 +98,7 @@ export const BrandStory = ({
                   <h3 className="font-medium text-charcoal-900 mb-1">
                     {value.title}
                   </h3>
-                  <p className="text-sm text-charcoal-500">
+                  <p className="text-sm text-charcoal-600">
                     {value.description}
                   </p>
                 </motion.div>

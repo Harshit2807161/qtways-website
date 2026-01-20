@@ -17,6 +17,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.6.0] - 2026-01-12
+
+### Fixed
+- **Accessibility Improvements (Critical)**
+  - Added skip-to-content link for keyboard navigation
+  - Added accessible label to Newsletter email input
+  - Verified all icon buttons have proper aria-labels
+
+- **Visual Consistency (Major)**
+  - Changed section backgrounds from `bg-white` to `bg-cream-50` for warm theme
+  - Fixed text colors (`charcoal-500` → `charcoal-600`) for proper contrast
+  - Added lazy loading to all below-fold images
+  - Added mobile hero image (was hidden on smaller screens)
+  - Updated Hero badge to use `bg-gold-500` for better visibility
+
+- **Polish (Minor)**
+  - Changed ShopByConcern grid from 5 to 4 columns on desktop
+  - Added title attributes to Footer social icons for hover tooltips
+  - Verified animation stagger delays follow 50-100ms standard
+  - Confirmed global focus-visible styles cover all interactive elements
+
+### Added
+- `docs/design-review-findings.md` - Complete design audit with 12 issues
+
+---
+
 ## [0.5.0] - 2026-01-11
 
 ### Added
@@ -190,6 +216,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Description |
 |---------|------|-------------|
+| 0.6.0 | 2026-01-12 | Design review fixes: accessibility, visual consistency, polish |
 | 0.5.0 | 2026-01-11 | Developer documentation and desktop width fix |
 | 0.4.0 | 2026-01-11 | Sprint 5: Interactive components, MVP complete |
 | 0.3.0 | 2026-01-11 | Sprint 3 & 4: Layout, UI, and homepage sections |

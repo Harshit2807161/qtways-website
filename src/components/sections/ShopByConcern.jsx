@@ -24,7 +24,7 @@ export const ShopByConcern = ({
 
   return (
     <section
-      className={`section-padding bg-white ${className}`}
+      className={`section-padding bg-cream-50 ${className}`}
       {...props}
     >
       <div className="container-custom">
@@ -46,7 +46,7 @@ export const ShopByConcern = ({
         </motion.div>
 
         {/* Concerns Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           {concerns.map((concern, index) => {
             const Icon = iconMap[concern.icon] || Target;
             return (
@@ -67,7 +67,7 @@ export const ShopByConcern = ({
                   <h3 className="font-medium text-charcoal-900 mb-1 group-hover:text-gold-600 transition-colors">
                     {concern.name}
                   </h3>
-                  <p className="text-xs text-charcoal-500 line-clamp-2">
+                  <p className="text-xs text-charcoal-600 line-clamp-2">
                     {concern.shortDescription}
                   </p>
                   <span className="inline-flex items-center gap-1 text-gold-600 text-sm mt-3 opacity-0 group-hover:opacity-100 transition-opacity">

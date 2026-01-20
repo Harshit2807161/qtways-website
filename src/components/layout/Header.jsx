@@ -15,7 +15,6 @@ export const Header = ({
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);

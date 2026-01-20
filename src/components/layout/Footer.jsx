@@ -45,6 +45,7 @@ export const Footer = ({ className, ...props }) => {
                     rel="noopener noreferrer"
                     className="p-2 bg-charcoal-800 text-cream-200 hover:bg-gold-500 hover:text-white rounded-md transition-colors"
                     aria-label={`Follow us on ${key}`}
+                    title={key.charAt(0).toUpperCase() + key.slice(1)}
                   >
                     <Icon className="w-5 h-5" />
                   </a>

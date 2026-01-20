@@ -28,11 +28,10 @@ export const Hero = ({ className, ...props }) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-block px-4 py-1.5 bg-gold-100 text-gold-700 text-sm font-medium rounded-full mb-6"
+              className="inline-block px-4 py-1.5 bg-gold-500 text-white text-sm font-medium rounded-full mb-6"
             >
               New Collection Available
             </motion.span>
-
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -86,20 +85,41 @@ export const Hero = ({ className, ...props }) => {
             >
               <div className="text-center">
                 <p className="font-display text-3xl text-charcoal-900">10K+</p>
-                <p className="text-sm text-charcoal-500">Happy Customers</p>
+                <p className="text-sm text-charcoal-600">Happy Customers</p>
               </div>
               <div className="text-center">
                 <p className="font-display text-3xl text-charcoal-900">50+</p>
-                <p className="text-sm text-charcoal-500">Products</p>
+                <p className="text-sm text-charcoal-600">Products</p>
               </div>
               <div className="text-center">
                 <p className="font-display text-3xl text-charcoal-900">4.9</p>
-                <p className="text-sm text-charcoal-500">Avg Rating</p>
+                <p className="text-sm text-charcoal-600">Avg Rating</p>
               </div>
             </motion.div>
           </motion.div>
 
-          {/* Image */}
+          {/* Mobile Hero Image */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="lg:hidden mt-8"
+          >
+            <div className="relative aspect-[16/9] rounded-xl overflow-hidden shadow-elegant mx-auto max-w-md">
+              <img
+                src="/images/hero-product.jpg"
+                alt="QTWAYS Premium Skincare Collection"
+                className="w-full h-full object-cover"
+                loading="lazy"
+                onError={(e) => {
+                  e.target.src = 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&q=80';
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/20 to-transparent" />
+            </div>
+          </motion.div>
+
+          {/* Desktop Image */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -126,7 +146,7 @@ export const Hero = ({ className, ...props }) => {
               className="absolute -left-6 top-1/4 bg-white rounded-lg shadow-elegant p-4"
             >
               <p className="text-sm font-medium text-charcoal-900">100% Natural</p>
-              <p className="text-xs text-charcoal-500">Ingredients</p>
+              <p className="text-xs text-charcoal-600">Ingredients</p>
             </motion.div>
 
             <motion.div
@@ -136,7 +156,7 @@ export const Hero = ({ className, ...props }) => {
               className="absolute -right-6 bottom-1/4 bg-white rounded-lg shadow-elegant p-4"
             >
               <p className="text-sm font-medium text-charcoal-900">Cruelty Free</p>
-              <p className="text-xs text-charcoal-500">Never tested on animals</p>
+              <p className="text-xs text-charcoal-600">Never tested on animals</p>
             </motion.div>
           </motion.div>
         </div>

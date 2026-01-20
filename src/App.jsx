@@ -12,7 +12,7 @@ import {
 } from './components';
 import { useCart } from './hooks';
 import { AuthProvider } from './context/AuthContext';
-import HomePage from './pages/HomePage';
+import { HomePage, ShopPage, ProductDetailPage } from './pages';
 
 function AppContent() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -63,11 +63,11 @@ function AppContent() {
       <div id="main-content" className="flex-1">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          {/* Placeholder routes for future pages */}
-          <Route path="/shop" element={<PlaceholderPage title="Shop" />} />
-          <Route path="/category/:slug" element={<PlaceholderPage title="Category" />} />
-          <Route path="/concern/:slug" element={<PlaceholderPage title="Concern" />} />
-          <Route path="/product/:slug" element={<PlaceholderPage title="Product" />} />
+          {/* Shop & Product Pages */}
+          <Route path="/shop" element={<ShopPage />} />
+          <Route path="/category/:slug" element={<ShopPage />} />
+          <Route path="/concern/:slug" element={<ShopPage />} />
+          <Route path="/product/:slug" element={<ProductDetailPage />} />
           <Route path="/cart" element={<PlaceholderPage title="Cart" />} />
           <Route path="/checkout" element={<PlaceholderPage title="Checkout" />} />
           <Route path="/account" element={<PlaceholderPage title="My Account" />} />

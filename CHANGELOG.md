@@ -10,10 +10,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned
-- Sprint 8: Shop & Product Pages
 - Sprint 9: Cart System with backend sync
 - Sprint 10: Checkout & Orders
 - Sprint 11: Polish & Testing
+
+---
+
+## [0.8.0] - 2026-01-20
+
+### Added
+- **Sprint 8: Shop & Product Pages**
+  - `ShopPage.jsx` - Complete shop listing page with:
+    - Responsive product grid (3/4 column toggle)
+    - Category and subcategory filters
+    - Price range filters (Under ₹300, ₹300-500, ₹500-1000, Above ₹1000)
+    - In-stock filter
+    - Sorting options (Featured, Price, Rating, Discount, Newest)
+    - Mobile filter drawer
+    - Active filter pills with clear functionality
+  - `ProductDetailPage.jsx` - Complete product detail page with:
+    - Product image gallery
+    - Price display with discount badges
+    - Star rating display
+    - Quantity selector
+    - Add to cart functionality
+    - Product tabs (Description, Ingredients, How to Use, Benefits)
+    - Trust badges (Free Shipping, Secure Payment, Easy Returns)
+    - Certification pills
+    - Related products section
+  - `src/pages/index.js` - Pages barrel export
+
+### Changed
+- Updated `products.js` with 18 real products from qtways.com:
+  - 8 Face Care products (Serums, Cleansers, Moisturizers, Treatments, Sunscreen)
+  - 6 Skincare Kits (Anti-Acne, Anti-Aging, Anti-Wrinkle, Morning/Evening Routine, Oily Skin)
+  - 4 Health & Wellness supplements (Protigud, Glustar Pro, Neuroglad, Varinorm)
+- Updated `categories.js` with actual categories (Face Care, Kits, Health & Wellness)
+- Updated `App.jsx` with new routes for `/shop`, `/category/:slug`, and `/product/:slug`
+
+### Technical Details
+- Product data includes full details: prices, descriptions, ingredients, benefits, how-to-use, certifications
+- Filter and sort functions added to products.js helper functions
+- Related products algorithm based on category and concerns
+- Responsive design tested at 375px, 768px, and 1440px breakpoints
 
 ---
 
@@ -252,6 +291,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Description |
 |---------|------|-------------|
+| 0.8.0 | 2026-01-20 | Sprint 8: Shop & Product Pages with real qtways.com data |
 | 0.7.0 | 2026-01-20 | Sprint 7: Phone OTP authentication system |
 | 0.6.0 | 2026-01-12 | Design review fixes: accessibility, visual consistency, polish |
 | 0.5.0 | 2026-01-11 | Developer documentation and desktop width fix |

@@ -9,70 +9,48 @@ export const categories = [
     slug: 'face-care',
     description: 'Premium face care products for radiant, healthy-looking skin. From cleansers to serums, find your perfect routine.',
     shortDescription: 'Cleansers, serums, moisturizers & more',
-    image: '/images/categories/face-care.jpg',
+    image: 'https://qtways.com/cdn/shop/files/10_-VITAMIN-C-_-0.5_-FERULIC.jpg',
     icon: 'Sparkles',
-    productCount: 5,
+    productCount: 8,
     featured: true,
     order: 1,
     subcategories: [
-      { id: 'cleansers', name: 'Cleansers', slug: 'cleansers' },
       { id: 'serums', name: 'Serums', slug: 'serums' },
+      { id: 'cleansers', name: 'Cleansers', slug: 'cleansers' },
       { id: 'moisturizers', name: 'Moisturizers', slug: 'moisturizers' },
       { id: 'treatments', name: 'Treatments', slug: 'treatments' },
-      { id: 'masks', name: 'Face Masks', slug: 'masks' }
+      { id: 'sunscreen', name: 'Sunscreen', slug: 'sunscreen' }
     ]
   },
   {
-    id: 'body-care',
-    name: 'Body Care',
-    slug: 'body-care',
-    description: 'Luxurious body care essentials for silky smooth skin from head to toe. Indulge in our nourishing formulas.',
-    shortDescription: 'Lotions, scrubs, body washes & more',
-    image: '/images/categories/body-care.jpg',
-    icon: 'Droplets',
-    productCount: 3,
+    id: 'kits',
+    name: 'Skincare Kits',
+    slug: 'kits',
+    description: 'Complete skincare routines in one kit. Save money with our curated bundles designed for specific skin needs.',
+    shortDescription: 'Combo kits for complete routines',
+    image: 'https://qtways.com/cdn/shop/files/Anti-Acne-Kit-Combo.jpg',
+    icon: 'Package',
+    productCount: 6,
     featured: true,
     order: 2,
     subcategories: [
-      { id: 'body-lotions', name: 'Body Lotions', slug: 'body-lotions' },
-      { id: 'body-washes', name: 'Body Washes', slug: 'body-washes' },
-      { id: 'scrubs', name: 'Body Scrubs', slug: 'scrubs' },
-      { id: 'body-oils', name: 'Body Oils', slug: 'body-oils' }
-    ]
-  },
-  {
-    id: 'hair-care',
-    name: 'Hair Care',
-    slug: 'hair-care',
-    description: 'Transform your hair with our range of nourishing oils, serums, and treatments for all hair types.',
-    shortDescription: 'Oils, serums, treatments & more',
-    image: '/images/categories/hair-care.jpg',
-    icon: 'Wind',
-    productCount: 2,
-    featured: true,
-    order: 3,
-    subcategories: [
-      { id: 'hair-oils', name: 'Hair Oils', slug: 'hair-oils' },
-      { id: 'hair-serums', name: 'Hair Serums', slug: 'hair-serums' },
-      { id: 'shampoos', name: 'Shampoos', slug: 'shampoos' },
-      { id: 'conditioners', name: 'Conditioners', slug: 'conditioners' }
+      { id: 'skin-kits', name: 'Skin Kits', slug: 'skin-kits' }
     ]
   },
   {
     id: 'health-wellness',
     name: 'Health & Wellness',
     slug: 'health-wellness',
-    description: 'Support your beauty from within with our curated selection of supplements and wellness products.',
-    shortDescription: 'Supplements, vitamins & wellness',
-    image: '/images/categories/health-wellness.jpg',
+    description: 'Support your health from within with our curated selection of supplements and wellness products.',
+    shortDescription: 'Supplements, protein & wellness',
+    image: 'https://qtways.com/cdn/shop/files/Protigud.jpg',
     icon: 'Heart',
-    productCount: 2,
+    productCount: 4,
     featured: true,
-    order: 4,
+    order: 3,
     subcategories: [
-      { id: 'supplements', name: 'Supplements', slug: 'supplements' },
-      { id: 'vitamins', name: 'Vitamins', slug: 'vitamins' },
-      { id: 'collagen', name: 'Collagen', slug: 'collagen' }
+      { id: 'protein', name: 'Protein', slug: 'protein' },
+      { id: 'supplements', name: 'Supplements', slug: 'supplements' }
     ]
   }
 ];

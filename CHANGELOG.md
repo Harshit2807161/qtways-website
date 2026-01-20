@@ -10,10 +10,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned
-- Responsive design testing (375px, 768px, 1440px)
-- Lighthouse performance audit
-- Vercel deployment
-- Additional pages (Shop, Product Detail, Cart, Checkout)
+- Sprint 8: Shop & Product Pages
+- Sprint 9: Cart System with backend sync
+- Sprint 10: Checkout & Orders
+- Sprint 11: Polish & Testing
+
+---
+
+## [0.7.0] - 2026-01-20
+
+### Added
+- **Sprint 7: Authentication System**
+  - Complete phone OTP authentication flow for Indian market
+  - `api/auth/send-otp.js` - Send OTP with rate limiting (3 requests/10 min)
+  - `api/auth/verify-otp.js` - Verify OTP and create/login user with JWT
+  - `api/auth/me.js` - Get current user session
+  - `api/auth/logout.js` - Clear auth cookie
+
+- **SMS Gateway Service**
+  - `lib/services/sms.js` - Multi-provider SMS support
+  - MSG91 integration (India-focused)
+  - Twilio integration (international)
+  - Mock mode for development without credentials
+
+- **Auth Components**
+  - `LoginModal.jsx` - Two-step login flow with animations
+  - `PhoneInput.jsx` - Indian phone input with +91 prefix
+  - `OTPInput.jsx` - 6-digit OTP input with auto-focus
+  - `AuthContext.jsx` - Global authentication state management
+
+### Changed
+- Updated `Header.jsx` to show authenticated user with logout button
+- Updated `MobileNav.jsx` with login/account section
+- Updated `App.jsx` to wrap with AuthProvider
+
+### Technical Details
+- JWT tokens stored in httpOnly cookies (7-day expiry)
+- OTP auto-expires after 5 minutes (MongoDB TTL)
+- Rate limiting on OTP endpoints
+- Session ID for guest cart management
+- Resend OTP cooldown (30 seconds)
 
 ---
 
@@ -216,6 +252,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Description |
 |---------|------|-------------|
+| 0.7.0 | 2026-01-20 | Sprint 7: Phone OTP authentication system |
 | 0.6.0 | 2026-01-12 | Design review fixes: accessibility, visual consistency, polish |
 | 0.5.0 | 2026-01-11 | Developer documentation and desktop width fix |
 | 0.4.0 | 2026-01-11 | Sprint 5: Interactive components, MVP complete |

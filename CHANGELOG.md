@@ -10,9 +10,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned
-- Sprint 9: Cart System with backend sync
 - Sprint 10: Checkout & Orders
 - Sprint 11: Polish & Testing
+
+---
+
+## [0.9.0] - 2026-01-20
+
+### Added
+- **Sprint 9: Cart System**
+  - `CartPage.jsx` - Full cart page with:
+    - Responsive cart item list with product images
+    - Quantity controls (increase/decrease)
+    - Remove item functionality
+    - Clear cart button
+    - Free shipping progress bar
+    - Order summary sidebar
+    - Promo code input with validation (WELCOME10 = 10% off)
+    - Price breakdown (subtotal, savings, shipping, total)
+    - Trust badges (Secure Payment, Fast Delivery, Easy Returns)
+    - Continue shopping and checkout CTAs
+
+### Changed
+- Updated `useCart.js` hook with new computed values:
+  - `total` - Subtotal plus shipping cost
+  - `totalSavings` - Sum of discounts from original prices
+  - `shippingCost` - ₹49 or free if subtotal >= ₹999
+  - `freeShippingThreshold` - Exposed constant (₹999)
+- Updated `CartDrawer.jsx` with improved order summary:
+  - Shows subtotal, shipping, and total separately
+  - Uses useCart hook values instead of siteConfig
+  - Displays actual shipping cost when not free
+- Updated `App.jsx` with `/cart` route using CartPage
+- Updated `pages/index.js` with CartPage export
+
+### Technical Details
+- Cart persists in localStorage across browser sessions
+- Free shipping threshold: ₹999
+- Standard shipping cost: ₹49
+- Promo code system supports percentage-based discounts
+- Responsive design with mobile-friendly layout
 
 ---
 
@@ -291,6 +328,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Description |
 |---------|------|-------------|
+| 0.9.0 | 2026-01-20 | Sprint 9: Cart System with CartPage and enhanced useCart hook |
 | 0.8.0 | 2026-01-20 | Sprint 8: Shop & Product Pages with real qtways.com data |
 | 0.7.0 | 2026-01-20 | Sprint 7: Phone OTP authentication system |
 | 0.6.0 | 2026-01-12 | Design review fixes: accessibility, visual consistency, polish |

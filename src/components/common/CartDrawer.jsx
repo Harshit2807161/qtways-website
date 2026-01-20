@@ -5,10 +5,19 @@ import { X, Plus, Minus, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
 import { cn, formatPrice } from '../../utils';
 import { useCart } from '../../hooks';
 import { Button } from '../ui';
-import { siteConfig } from '../../data';
 
 export const CartDrawer = ({ isOpen, onClose }) => {
-  const { items, itemCount, total, updateQuantity, removeItem, clearCart } = useCart();
+  const {
+    items,
+    itemCount,
+    subtotal,
+    total,
+    shippingCost,
+    freeShippingThreshold,
+    updateQuantity,
+    removeItem,
+    clearCart,
+  } = useCart();
 
   // Handle escape key and body scroll lock
   useEffect(() => {
@@ -27,9 +36,8 @@ export const CartDrawer = ({ isOpen, onClose }) => {
     };
   }, [isOpen, onClose]);
 
-  const freeShippingThreshold = siteConfig.shipping.freeShippingThreshold;
-  const remainingForFreeShipping = Math.max(0, freeShippingThreshold - total);
-  const hasFreeShipping = total >= freeShippingThreshold;
+  const remainingForFreeShipping = Math.max(0, freeShippingThreshold - subtotal);
+  const hasFreeShipping = subtotal >= freeShippingThreshold;
 
   return (
     <AnimatePresence>
@@ -89,7 +97,7 @@ export const CartDrawer = ({ isOpen, onClose }) => {
                     <div className="w-full h-2 bg-cream-200 rounded-full overflow-hidden">
                       <div
                         className="h-full bg-gold-500 transition-all duration-300"
-                        style={{ width: `${Math.min(100, (total / freeShippingThreshold) * 100)}%` }}
+                        style={{ width: `${Math.min(100, (subtotal / freeShippingThreshold) * 100)}%` }}
                       />
                     </div>
                   </>
@@ -128,19 +136,25 @@ export const CartDrawer = ({ isOpen, onClose }) => {
 
             {/* Footer */}
             {itemCount > 0 && (
-              <div className="border-t border-cream-200 px-6 py-4 space-y-4">
+              <div className="border-t border-cream-200 px-6 py-4 space-y-3">
                 {/* Subtotal */}
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between text-sm">
                   <span className="text-charcoal-600">Subtotal</span>
-                  <span className="font-medium text-charcoal-900">{formatPrice(total)}</span>
+                  <span className="text-charcoal-900">{formatPrice(subtotal)}</span>
                 </div>
 
                 {/* Shipping */}
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-charcoal-500">Shipping</span>
                   <span className={hasFreeShipping ? 'text-sage-600' : 'text-charcoal-500'}>
-                    {hasFreeShipping ? 'Free' : 'Calculated at checkout'}
+                    {hasFreeShipping ? 'Free' : formatPrice(shippingCost)}
                   </span>
+                </div>
+
+                {/* Total */}
+                <div className="flex items-center justify-between pt-2 border-t border-cream-200">
+                  <span className="font-medium text-charcoal-900">Total</span>
+                  <span className="font-semibold text-lg text-charcoal-900">{formatPrice(total)}</span>
                 </div>
 
                 {/* Actions */}

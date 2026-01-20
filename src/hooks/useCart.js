@@ -88,12 +88,39 @@ export const useCart = () => {
     [items]
   );
 
+  // Calculate total savings from discounts
+  const totalSavings = useMemo(
+    () => items.reduce((total, item) => {
+      const originalPrice = item.originalPrice || item.price;
+      return total + (originalPrice - item.price) * item.quantity;
+    }, 0),
+    [items]
+  );
+
+  // Shipping calculation (free over ₹999)
+  const FREE_SHIPPING_THRESHOLD = 999;
+  const SHIPPING_COST = 49;
+
+  const shippingCost = useMemo(
+    () => subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST,
+    [subtotal]
+  );
+
+  const total = useMemo(
+    () => subtotal + shippingCost,
+    [subtotal, shippingCost]
+  );
+
   const isEmpty = items.length === 0;
 
   return {
     items,
     itemCount,
     subtotal,
+    total,
+    totalSavings,
+    shippingCost,
+    freeShippingThreshold: FREE_SHIPPING_THRESHOLD,
     isEmpty,
     addItem,
     removeItem,

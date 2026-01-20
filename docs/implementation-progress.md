@@ -1,7 +1,7 @@
 # QTWAYS Website - Implementation Progress
 
 > **Last Updated**: January 20, 2026
-> **Current Sprint**: V1 - Sprint 9 (Cart System)
+> **Current Sprint**: V1 - Sprint 10 (Checkout & Orders)
 > **Status**: MVP Complete, V1 In Progress
 
 ---
@@ -25,7 +25,7 @@
 | Sprint 6: Backend Foundation | Completed | 100% |
 | Sprint 7: Authentication System | Completed | 100% |
 | Sprint 8: Shop & Product Pages | Completed | 100% |
-| Sprint 9: Cart System | Pending | 0% |
+| Sprint 9: Cart System | Completed | 100% |
 | Sprint 10: Checkout & Orders | Pending | 0% |
 | Sprint 11: Polish & Testing | Pending | 0% |
 
@@ -344,7 +344,37 @@ src/data/
 - **Shop Page**: Complete with filtering, sorting, and responsive design
 - **Product Detail Page**: Complete with all product information and tabs
 - **Product Data**: 18 real products from qtways.com
-- **Next**: Sprint 9 - Cart System
+- **Next**: Sprint 9 - Cart System (completed in Session 7)
+
+---
+
+### Session 7 - January 20, 2026
+**Focus**: Sprint 9 (Cart System)
+
+#### Sprint 9 Completed:
+- [x] Reviewed and enhanced useCart hook with new computed values
+- [x] Created CartPage component with full cart functionality
+- [x] Updated CartDrawer with improved price breakdown
+- [x] Tested cart add/remove/quantity controls
+- [x] Tested free shipping threshold logic
+- [x] Tested promo code functionality (WELCOME10)
+- [x] Updated App.jsx with /cart route
+- [x] Updated pages barrel export
+
+#### Files Created:
+- `src/pages/CartPage.jsx` - Full cart page component
+
+#### Files Modified:
+- `src/hooks/useCart.js` - Added total, totalSavings, shippingCost, freeShippingThreshold
+- `src/components/common/CartDrawer.jsx` - Updated to use useCart values, improved price display
+- `src/App.jsx` - Added /cart route
+- `src/pages/index.js` - Added CartPage export
+
+#### Summary:
+- **Cart Page**: Complete with quantity controls, promo codes, free shipping progress
+- **useCart Hook**: Enhanced with computed values for shipping and totals
+- **CartDrawer**: Updated with proper price breakdown
+- **Next**: Sprint 10 - Checkout & Orders
 
 ---
 

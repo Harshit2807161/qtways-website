@@ -12,7 +12,7 @@ import {
 } from './components';
 import { useCart } from './hooks';
 import { AuthProvider } from './context/AuthContext';
-import { HomePage, ShopPage, ProductDetailPage } from './pages';
+import { HomePage, ShopPage, ProductDetailPage, CartPage } from './pages';
 
 function AppContent() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -68,7 +68,7 @@ function AppContent() {
           <Route path="/category/:slug" element={<ShopPage />} />
           <Route path="/concern/:slug" element={<ShopPage />} />
           <Route path="/product/:slug" element={<ProductDetailPage />} />
-          <Route path="/cart" element={<PlaceholderPage title="Cart" />} />
+          <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<PlaceholderPage title="Checkout" />} />
           <Route path="/account" element={<PlaceholderPage title="My Account" />} />
           <Route path="/orders" element={<PlaceholderPage title="Order History" />} />
